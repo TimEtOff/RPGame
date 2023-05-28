@@ -1,42 +1,132 @@
 package fr.timeto.rpgame.core;
 
+import fr.timeto.rpgame.display.GameFrame;
+import fr.timeto.rpgame.display.Room;
+
+import javax.swing.*;
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Objects;
 
 
 public class Client
 {
     protected static Socket socket;
+    public static GameFrame gameFrame;
+    public static String publicIP;
 
-    public static void main(String[] args) throws Exception
-    {
-        socket = new Socket("127.0.0.1", 4000);
-        BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String line;
+    public static boolean isConnectedToServer = false;
 
-        sendToServer(new Date().toString());
+    public static void main(String[] args) throws Exception {
+        GameFrame.RP_GAMEFOLDER.mkdir();
+        GameFrame.RP_CHARACTERSFOLDER.mkdir();
+        GameFrame.RP_MAPSFOLDER.mkdir();
+        GameFrame.RP_CONFIGFILE.createNewFile();
 
-        while ((line = readerChannel.readLine()) != null)
-        {
-            System.out.println(line);
+        if (GameFrame.RP_CONFIGFILE_SAVER.get("id") == null) {
+            GameFrame.RP_CONFIGFILE_SAVER.set("id", ConnectedClient.generateHash());
+        }
+
+        gameFrame = new GameFrame();
+        publicIP = Objects.requireNonNull(getMyPublicIP());
+    }
+
+    public static void println(String str) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("[" + dtf.format(now) + "] [" + publicIP + " (Me)/Private] " + str);
+    }
+
+    public static void connectToServer() {
+        Thread t = new Thread(() -> {
+            println("Connecting to server...");
+            try {
+                String ip = SecretInfos.SERVER_IP;
+                if (Objects.equals(getMyPublicIP(), SecretInfos.SERVER_IP)) {
+                    ip = "127.0.0.1";
+                }
+                socket = new Socket(ip, SecretInfos.SERVER_PORT);
+            } catch (ConnectException e) {
+                JOptionPane.showMessageDialog(null, "Echec de la connexion", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            isConnectedToServer = true;
+            println("You are now connected to the server");
+            gameFrame.setContentPane(new Room());
+
+            BufferedWriter writerChannel = null;
+            BufferedReader readerChannel = null;
+            try {
+                writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                sendToServer(Server.FROM_CLIENT.SENDING_ID.str + GameFrame.RP_CONFIGFILE_SAVER.get("id") + "]");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            String line;
+            while (true && isConnectedToServer) {
+                try {
+                    if (!((line = readerChannel.readLine()) != null)) break;
+                } catch (SocketException e) {
+                    return;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println(line);
+            }
+            });
+            t.start();
+        }
+
+        public static void sendToServer(String str) throws IOException {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line;
+
+            writerChannel.write(str + "\n");
+            writerChannel.flush();
+
+            System.out.println("[" + dtf.format(now) + "] [" + publicIP + " (Me)] " + str);
+        }
+
+        public static void disconnect() {
+            try {
+                if (isConnectedToServer) {
+                    Client.sendToServer(Server.FROM_CLIENT.DISCONNECTING.str + " Client disconnecting...");
+                socket.close();
+                isConnectedToServer = false;
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    protected static void sendToServer(String str) throws IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String line;
-
-        writerChannel.write(str + "\n");
-        writerChannel.flush();
-
-        System.out.println("[" + dtf.format(now) + "] [" + socket.getLocalAddress().getHostAddress() + " (Me)] " + str);
+    public static String getMyPublicIP() {
+        try
+        {
+            URL ip = new URL("https://checkip.amazonaws.com");
+            BufferedReader br = new BufferedReader(new InputStreamReader(ip.openStream()));
+            return br.readLine();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception: " +e);
+            return null;
+        }
     }
 }

@@ -2,16 +2,27 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
+group 'fr.timeto'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven {
+        url 'https://litarvan.github.io/maven'
+    }
+    maven {
+        url 'https://jitpack.io'
+        name 'Jitpack'
+    }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation('net.harawata:appdirs:1.2.1')
+    implementation('fr.theshark34.swinger:swinger:1.0.1-BETA')
+    implementation('org.imgscalr:imgscalr-lib:4.2')
+    implementation('com.github.TimEtOff:TimUtilsLib:8ebcad452b312494aa1384fa739af9f9b293d26d')
+    implementation('fr.flowarg:openlauncherlib:3.2.6')
 }
 
 test {
