@@ -104,6 +104,7 @@ public class Server {
                         String id = split[1].substring(0, 10).replaceAll(" ", "");
                         if (connectedClient.setId(id)) {
                             printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") connected", true);
+                            sendConnectedClientsToAll();
                         }
 
                     } else if (info == FROM_CLIENT.DISCONNECTING.i) {
@@ -116,7 +117,8 @@ public class Server {
                 removeFromSocketList(connectedClient);
                 try {
                     printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") disconnected", true);
-                } catch (IOException e) {
+                } catch (SocketException ignored) {}
+                catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } catch (IOException ex) {
@@ -148,9 +150,18 @@ public class Server {
     }
 
     protected static void printToSocket(ConnectedClient client, String str) throws IOException {
+        printToSocket(client, true, str);
+    }
+
+    protected static void printToSocket(ConnectedClient client, boolean appearLikePrivate, String str) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String newStr = "[" + dtf.format(now) + "] [Server/To " + getIPFromSocket(client.socket) + " (" + client.id + ") only] " + str;
+        String newStr;
+        if (appearLikePrivate) {
+            newStr = "[" + dtf.format(now) + "] [Server/To " + getIPFromSocket(client.socket) + " (" + client.id + ") only] " + str;
+        } else {
+            newStr = "[" + dtf.format(now) + "] [Server] " + str;
+        }
         Socket socket = client.socket;
         BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -193,6 +204,39 @@ public class Server {
 
         if (serverConsoleIncluded) {
             System.out.println(newStr);
+        }
+    }
+
+    protected static void sendConnectedClientsToSocket(ConnectedClient client) {
+        try {
+
+            printToSocket(client, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
+            ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
+            oos.writeUnshared(connectedSockets);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    protected static void sendConnectedClientsToAll() {
+
+        if (!connectedSockets.isEmpty()) {
+            int i = 0;
+            while (i != connectedSockets.size()) {
+                ConnectedClient client = connectedSockets.get(i);
+                try {
+
+                    printToSocket(client, false, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
+                    ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
+                    oos.writeUnshared(connectedSockets);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                i++;
+            }
         }
     }
 

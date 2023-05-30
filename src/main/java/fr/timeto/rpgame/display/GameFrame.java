@@ -29,7 +29,7 @@ public class GameFrame extends JFrame {
         this.addWindowListener(exitListener);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
-    //    this.setIconImage(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
+    //    this.setIconImage(Swinger.getResourceIgnorePath("/character/launcher/main/logo.png"));
         super.setContentPane(new MainMenu());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 

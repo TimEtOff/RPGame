@@ -1,13 +1,15 @@
 package fr.timeto.rpgame.core;
 
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.Random;
 
-public class ConnectedClient {
+public class ConnectedClient implements Serializable {
 
-    protected final Socket socket;
+    protected transient final Socket socket;
     protected String id;
     protected boolean idSet = false;
+    protected Character selectedChar = null;
 
     public ConnectedClient(Socket socket) {
         this.socket = socket;
@@ -28,6 +30,14 @@ public class ConnectedClient {
         } else {
             return false;
         }
+    }
+
+    public void setCharacter(Character selectedChar) {
+        this.selectedChar = selectedChar;
+    }
+
+    public Character getCharacter() {
+        return selectedChar;
     }
 
     public static String generateHash() {

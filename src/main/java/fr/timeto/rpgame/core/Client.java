@@ -11,11 +11,28 @@ import java.net.SocketException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class Client
-{
+public class Client {
+
+    public enum FROM_SERVER {
+        SENDING_CONNECTED_CLIENTS("[SendingConnectedClients]", 1),
+
+        TEXT("", 0);
+
+        public final String str;
+        public final int i;
+
+        FROM_SERVER(String str, int i) {
+            this.str = str;
+            this.i = i;
+        }
+    }
+
+    public static ArrayList<ConnectedClient> connectedSockets = null;
+
     protected static Socket socket;
     public static GameFrame gameFrame;
     public static String publicIP;
@@ -84,7 +101,14 @@ public class Client
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println(line);
+
+                int info = verifyInfosFromServer(line);
+
+                if (info == FROM_SERVER.SENDING_CONNECTED_CLIENTS.i) {
+                    getConnectedClients(line);
+                } else if (info == FROM_SERVER.TEXT.i) {
+                    System.out.println(line);
+                }
             }
             });
             t.start();
@@ -104,16 +128,41 @@ public class Client
             System.out.println("[" + dtf.format(now) + "] [" + publicIP + " (Me)] " + str);
         }
 
+        protected static void getConnectedClients(String txtFromServer) {
+            System.out.println(txtFromServer);
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                connectedSockets = (ArrayList<ConnectedClient>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         public static void disconnect() {
             try {
                 if (isConnectedToServer) {
                     Client.sendToServer(Server.FROM_CLIENT.DISCONNECTING.str + " Client disconnecting...");
                 socket.close();
+                connectedSockets = null;
                 isConnectedToServer = false;
             }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    protected static int verifyInfosFromServer(String str) {
+        int i = 0;
+        FROM_SERVER[] values = FROM_SERVER.values();
+        while (i != values.length) {
+            if (str.contains(values[i].str)) {
+                return values[i].i;
+            }
+            i++;
+        }
+
+        return FROM_SERVER.TEXT.i;
     }
 
     public static String getMyPublicIP() {
