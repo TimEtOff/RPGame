@@ -31,11 +31,12 @@ public class Client {
         }
     }
 
-    public static ArrayList<ConnectedClient> connectedSockets = null;
+    public static ArrayList<ConnectedClient> connectedClients = null;
 
     protected static Socket socket;
     public static GameFrame gameFrame;
     public static String publicIP;
+    public static String id;
 
     public static boolean isConnectedToServer = false;
 
@@ -47,6 +48,16 @@ public class Client {
 
         if (GameFrame.RP_CONFIGFILE_SAVER.get("id") == null) {
             GameFrame.RP_CONFIGFILE_SAVER.set("id", ConnectedClient.generateHash());
+        }
+
+        if (args.length != 0) {
+            if (Objects.equals(args[0], "--randomId")) {
+                id = ConnectedClient.generateHash();
+            } else {
+                id = GameFrame.RP_CONFIGFILE_SAVER.get("id");
+            }
+        } else {
+            id = GameFrame.RP_CONFIGFILE_SAVER.get("id");
         }
 
         gameFrame = new GameFrame();
@@ -87,7 +98,7 @@ public class Client {
             }
 
             try {
-                sendToServer(Server.FROM_CLIENT.SENDING_ID.str + GameFrame.RP_CONFIGFILE_SAVER.get("id") + "]");
+                sendToServer(Server.FROM_CLIENT.SENDING_ID.str + id + "]");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -106,6 +117,7 @@ public class Client {
 
                 if (info == FROM_SERVER.SENDING_CONNECTED_CLIENTS.i) {
                     getConnectedClients(line);
+                //    System.out.println(line);
                 } else if (info == FROM_SERVER.TEXT.i) {
                     System.out.println(line);
                 }
@@ -128,14 +140,33 @@ public class Client {
             System.out.println("[" + dtf.format(now) + "] [" + publicIP + " (Me)] " + str);
         }
 
+        private static int nbTryGetConnectedClients = 1;
         protected static void getConnectedClients(String txtFromServer) {
             System.out.println(txtFromServer);
 
             try {
+                println("Get connected clients - try " + nbTryGetConnectedClients);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                connectedSockets = (ArrayList<ConnectedClient>) ois.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                Object object = ois.readUnshared();
+                System.out.println(object);
+                connectedClients = (ArrayList<ConnectedClient>) object;
+                nbTryGetConnectedClients = 1;
+
+            } catch (Exception e) {
+                if (e instanceof StreamCorruptedException && nbTryGetConnectedClients <= 8) {
+                    try {
+                        nbTryGetConnectedClients++;
+                        sendToServer(Server.FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.str + " StreamCorruptedException, retry");
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            if (gameFrame.getContentPane() instanceof Room) {
+                ((Room) gameFrame.getContentPane()).repaint();
             }
         }
 
@@ -144,7 +175,7 @@ public class Client {
                 if (isConnectedToServer) {
                     Client.sendToServer(Server.FROM_CLIENT.DISCONNECTING.str + " Client disconnecting...");
                 socket.close();
-                connectedSockets = null;
+                connectedClients = null;
                 isConnectedToServer = false;
             }
         } catch (IOException ex) {

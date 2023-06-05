@@ -1,5 +1,7 @@
 package fr.timeto.rpgame.core;
 
+import fr.timeto.rpgame.character.Character;
+
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.Random;
@@ -30,6 +32,10 @@ public class ConnectedClient implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setCharacter(Character selectedChar) {

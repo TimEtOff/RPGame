@@ -8,4 +8,15 @@ public class Character implements Serializable {
     protected String name;
     protected String firstname;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getFullName() {
+        return name + " " + firstname;
+    }
 }

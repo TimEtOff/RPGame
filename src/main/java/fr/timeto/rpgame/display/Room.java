@@ -4,6 +4,8 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.core.Client;
+import fr.timeto.rpgame.core.ConnectedClient;
+import fr.timeto.timutilslib.CustomFonts;
 import org.imgscalr.Scalr;
 
 import javax.swing.*;
@@ -62,6 +64,45 @@ public class Room extends JPanel implements SwingerEventListener {
                 Math.round(926*heightFactor),
                 10,
                 10);
+
+        if (Client.connectedClients != null) {
+            int i = 0;
+            int y = 125;
+            while (i != Client.connectedClients.size()) {
+                ConnectedClient client = Client.connectedClients.get(i);
+
+                g2d.setColor(new Color(52, 8, 8));
+                g2d.fillRoundRect(Math.round(990*widthFactor),
+                        Math.round(y*heightFactor),
+                        Math.round(840*widthFactor),
+                        Math.round(133*heightFactor),
+                        10,
+                        10);
+
+                Font font = CustomFonts.kollektifBoldFont.deriveFont(30f);
+                String text; // = Client.connectedClients.get(i).getCharacter()
+                if (client.getCharacter() == null) {
+                    text = "Personnage non choisi (" + client.getId() + ")";
+                } else {
+                    text = client.getCharacter().getFullName() + " (" + client.getId() + ")";
+                }
+
+                JLabel testLabel = new JLabel(text);
+                testLabel.setFont(font);
+                Dimension dimension = GameFrame.getStringSize(testLabel, text, Math.round(27*2), Math.round(7*2));
+                int nameZoneX = 1004;
+                int nameZoneY = Math.round((y + 14)*heightFactor);
+                g2d.setColor(new Color(80, 10, 10));
+                g2d.fillRoundRect(nameZoneX, nameZoneY, dimension.width, dimension.height, 30, 30);
+
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(font);
+                g2d.drawString(text, nameZoneX+27, nameZoneY+7);
+
+                y += 162;
+                i++;
+            }
+        }
 
     }
 

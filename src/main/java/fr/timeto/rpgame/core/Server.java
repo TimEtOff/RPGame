@@ -10,7 +10,6 @@ import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 
@@ -21,6 +20,7 @@ public class Server {
         UPLOAD_FILE("[UploadFile]", 2),
         DOWNLOAD_FILE("[DownloadFile]", 3),
         DISCONNECTING("[Disconnecting]", 4),
+        ASK_FOR_CONNECTED_CLIENTS("[AskConnectedClients]", 5),
 
         TEXT("", 0);
 
@@ -42,7 +42,7 @@ public class Server {
     protected static File SERVER_INFOSFILE;
     protected static Saver infosSaver;
 
-    protected static ArrayList<ConnectedClient> connectedSockets = new ArrayList<>();
+    protected static ArrayList<ConnectedClient> connectedClients = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
 
@@ -84,7 +84,7 @@ public class Server {
             }
 
             ConnectedClient connectedClient = new ConnectedClient(socket);
-            connectedSockets.add(connectedClient);
+            connectedClients.add(connectedClient);
             String line;
             try
             {
@@ -104,23 +104,27 @@ public class Server {
                         String id = split[1].substring(0, 10).replaceAll(" ", "");
                         if (connectedClient.setId(id)) {
                             printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") connected", true);
-                            sendConnectedClientsToAll();
+                            sendConnectedClientsToAll(); // FIXME C'est tout pété qd y'a + d'un client jpp
                         }
 
                     } else if (info == FROM_CLIENT.DISCONNECTING.i) {
                         socket.close();
                         throw new SocketException("Disconnected ?");
+
+                    } else if (info == FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.i) {
+                        sendConnectedClientsToSocket(connectedClient);
                     }
                 }
                 throw new SocketException("Disconnected ?");
             } catch (SocketException ex) {
-                removeFromSocketList(connectedClient);
+                connectedClients.remove(connectedClient);
                 try {
                     printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") disconnected", true);
                 } catch (SocketException ignored) {}
                 catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                sendConnectedClientsToAll();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -150,10 +154,14 @@ public class Server {
     }
 
     protected static void printToSocket(ConnectedClient client, String str) throws IOException {
-        printToSocket(client, true, str);
+        printToSocket(client, true, true, str);
     }
 
     protected static void printToSocket(ConnectedClient client, boolean appearLikePrivate, String str) throws IOException {
+        printToSocket(client, appearLikePrivate, true, str);
+    }
+
+    protected static void printToSocket(ConnectedClient client, boolean appearLikePrivate, boolean serverConsoleIncluded, String str) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String newStr;
@@ -170,10 +178,12 @@ public class Server {
             writerChannel.write(newStr + "\n");
             writerChannel.flush();
         } catch (SocketException ex) {
-            connectedSockets.remove(socket);
+            connectedClients.remove(socket);
         }
 
-        System.out.println(newStr);
+        if (serverConsoleIncluded) {
+            System.out.println(newStr);
+        }
     }
 
     protected static void printToAllSockets(String str) throws IOException {
@@ -184,10 +194,10 @@ public class Server {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String newStr = "[" + dtf.format(now) + "] [Server] " + str;
-        if (!connectedSockets.isEmpty()) {
+        if (!connectedClients.isEmpty()) {
             int i = 0;
-            while (i != connectedSockets.size()) {
-                Socket socket = connectedSockets.get(i).socket;
+            while (i != connectedClients.size()) {
+                Socket socket = connectedClients.get(i).socket;
                 BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 try
@@ -196,7 +206,7 @@ public class Server {
                     writerChannel.flush();
 
                 } catch (SocketException ex) {
-                    connectedSockets.remove(socket);
+                    connectedClients.remove(socket);
                 }
                 i++;
             }
@@ -212,7 +222,9 @@ public class Server {
 
             printToSocket(client, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
             ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
-            oos.writeUnshared(connectedSockets);
+            oos.flush();
+            oos.writeUnshared(connectedClients);
+            oos.flush();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -222,32 +234,27 @@ public class Server {
 
     protected static void sendConnectedClientsToAll() {
 
-        if (!connectedSockets.isEmpty()) {
+        for (ConnectedClient connectedClient : connectedClients) {
+            System.out.println(connectedClient.id);
+        }
+
+        if (!connectedClients.isEmpty()) {
             int i = 0;
-            while (i != connectedSockets.size()) {
-                ConnectedClient client = connectedSockets.get(i);
+            println(Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
+            while (i != connectedClients.size()) {
+                ConnectedClient client = connectedClients.get(i);
                 try {
 
-                    printToSocket(client, false, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
+                    printToSocket(client, false, false, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
                     ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
-                    oos.writeUnshared(connectedSockets);
+                    oos.flush();
+                    oos.writeUnshared(connectedClients);
+                    oos.flush();
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 i++;
-            }
-        }
-    }
-
-    public static void removeFromSocketList(ConnectedClient client) {
-        if (!connectedSockets.isEmpty()) {
-            int i = 0;
-            while (i != connectedSockets.size()) {
-                if (Objects.equals(connectedSockets.get(i).id, client.id)) {
-                    connectedSockets.remove(i);
-                    break;
-                }
             }
         }
     }

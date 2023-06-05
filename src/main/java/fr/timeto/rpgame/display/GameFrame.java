@@ -51,4 +51,15 @@ public class GameFrame extends JFrame {
             System.exit(0);
         }
     };
+
+    public static Dimension getStringSize(JComponent c, String text) {
+        return getStringSize(c, text, 0, 0);
+    }
+
+    public static Dimension getStringSize(JComponent c, String text, int pixelToAddWidth, int pixelToAddHeight) {
+        FontMetrics metrics = c.getFontMetrics(c.getFont());
+        int hgt = metrics.getHeight();
+        int adv = metrics.stringWidth(text);
+        return new Dimension(adv + pixelToAddWidth, hgt + pixelToAddHeight);
+    }
 }
