@@ -9,8 +9,10 @@ import java.util.Random;
 public class ConnectedClient implements Serializable {
 
     protected transient final Socket socket;
+
     protected String id;
     protected boolean idSet = false;
+    protected boolean isGM = false;
     protected Character selectedChar = null;
 
     public ConnectedClient(Socket socket) {
@@ -36,6 +38,14 @@ public class ConnectedClient implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public void setGM(boolean GM) {
+        isGM = GM;
+    }
+
+    public boolean isGM() {
+        return isGM;
     }
 
     public void setCharacter(Character selectedChar) {

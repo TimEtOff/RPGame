@@ -85,6 +85,9 @@ public class Server {
 
             ConnectedClient connectedClient = new ConnectedClient(socket);
             connectedClients.add(connectedClient);
+            if (connectedClients.size() == 1) {
+                connectedClient.setGM(true);
+            }
             String line;
             try
             {
@@ -117,14 +120,7 @@ public class Server {
                 }
                 throw new SocketException("Disconnected ?");
             } catch (SocketException ex) {
-                connectedClients.remove(connectedClient);
-                try {
-                    printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") disconnected", true);
-                } catch (SocketException ignored) {}
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                sendConnectedClientsToAll();
+                disconnectClient(connectedClient);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -257,6 +253,24 @@ public class Server {
                 i++;
             }
         }
+    }
+
+    protected static void disconnectClient(ConnectedClient client) {
+        connectedClients.remove(client);
+        try {
+            printToAllSockets(getIPFromSocket(client.socket) + " (" + client.id + ") disconnected", true);
+        } catch (SocketException ignored) {}
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (client.isGM()) {
+            ConnectedClient newGM = connectedClients.get(0);
+            println("New GM is " + getIPFromSocket(newGM.socket) + " (" + newGM.getId() + ")");
+            newGM.setGM(true);
+        }
+
+        sendConnectedClientsToAll();
     }
 
     public static void println(String str) {

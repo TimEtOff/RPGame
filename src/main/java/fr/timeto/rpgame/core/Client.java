@@ -116,6 +116,9 @@ public class Client {
                 int info = verifyInfosFromServer(line);
 
                 if (info == FROM_SERVER.SENDING_CONNECTED_CLIENTS.i) {
+                    if (gameFrame.getContentPane() instanceof Room) {
+                        ((Room) gameFrame.getContentPane()).spinner.setVisible(true);
+                    }
                     getConnectedClients(line);
                 //    System.out.println(line);
                 } else if (info == FROM_SERVER.TEXT.i) {
@@ -148,20 +151,19 @@ public class Client {
                 println("Get connected clients - try " + nbTryGetConnectedClients);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 Object object = ois.readUnshared();
-                System.out.println(object);
                 connectedClients = (ArrayList<ConnectedClient>) object;
                 nbTryGetConnectedClients = 1;
+                println("Got connected clients list");
+                if (gameFrame.getContentPane() instanceof Room) {
+                    ((Room) gameFrame.getContentPane()).spinner.setVisible(false);
+                }
 
             } catch (Exception e) {
-                if (e instanceof StreamCorruptedException && nbTryGetConnectedClients <= 8) {
-                    try {
-                        nbTryGetConnectedClients++;
-                        sendToServer(Server.FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.str + " StreamCorruptedException, retry");
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } else {
-                    throw new RuntimeException(e);
+                try {
+                    nbTryGetConnectedClients++;
+                    sendToServer(Server.FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.str + " StreamCorruptedException, retry");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
 
