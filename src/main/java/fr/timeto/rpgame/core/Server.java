@@ -21,6 +21,7 @@ public class Server {
         DOWNLOAD_FILE("[DownloadFile]", 3),
         DISCONNECTING("[Disconnecting]", 4),
         ASK_FOR_CONNECTED_CLIENTS("[AskConnectedClients]", 5),
+        SET_GM("[NewGM=", 6),
 
         TEXT("", 0);
 
@@ -107,7 +108,7 @@ public class Server {
                         String id = split[1].substring(0, 10).replaceAll(" ", "");
                         if (connectedClient.setId(id)) {
                             printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") connected", true);
-                            sendConnectedClientsToAll(); // FIXME C'est tout pété qd y'a + d'un client jpp
+                            sendConnectedClientsToAll();
                         }
 
                     } else if (info == FROM_CLIENT.DISCONNECTING.i) {
@@ -115,7 +116,7 @@ public class Server {
                         throw new SocketException("Disconnected ?");
 
                     } else if (info == FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.i) {
-                        sendConnectedClientsToSocket(connectedClient);
+                        sendConnectedClientsToSocket(connectedClient, false);
                     }
                 }
                 throw new SocketException("Disconnected ?");
@@ -214,18 +215,34 @@ public class Server {
     }
 
     protected static void sendConnectedClientsToSocket(ConnectedClient client) {
+        sendConnectedClientsToSocket(client, true);
+    }
+
+    protected static void sendConnectedClientsToSocket(ConnectedClient client, boolean print) {
         try {
 
-            printToSocket(client, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
-            ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
+            if (print) {
+                printToSocket(client, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
+            }
+
+            /*    ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
             oos.flush();
-            oos.writeUnshared(connectedClients);
-            oos.flush();
+            oos.writeUnshared(connectedClients);    // Premiere version testée qui marchait pas à 100%
+            oos.flush(); */
+
+            Socket socket = client.socket;
+            BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            try {
+                writerChannel.write(ConnectedClient.connectedClientsToString(connectedClients) + "\n");
+                writerChannel.flush();
+            } catch (SocketException ex) {
+                connectedClients.remove(socket);
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     protected static void sendConnectedClientsToAll() {
@@ -242,10 +259,23 @@ public class Server {
                 try {
 
                     printToSocket(client, false, false, Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
-                    ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
+
+                    /*    ObjectOutputStream oos = new ObjectOutputStream(client.socket.getOutputStream());
                     oos.flush();
-                    oos.writeUnshared(connectedClients);
-                    oos.flush();
+                    oos.writeUnshared(connectedClients);    // Premiere version testée qui marchait pas à 100%
+                    oos.flush(); */
+
+                    Socket socket = client.socket;
+                    BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    try {
+                        String line = ConnectedClient.connectedClientsToString(connectedClients);
+                        System.out.println(line);
+                        writerChannel.write(line + "\n");
+                        writerChannel.flush();
+                    } catch (SocketException ex) {
+                        connectedClients.remove(socket);
+                    }
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -264,7 +294,7 @@ public class Server {
             throw new RuntimeException(e);
         }
 
-        if (client.isGM()) {
+        if (client.isGM() && !connectedClients.isEmpty()) {
             ConnectedClient newGM = connectedClients.get(0);
             println("New GM is " + getIPFromSocket(newGM.socket) + " (" + newGM.getId() + ")");
             newGM.setGM(true);

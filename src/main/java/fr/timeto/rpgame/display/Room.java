@@ -5,17 +5,21 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.core.Client;
 import fr.timeto.rpgame.core.ConnectedClient;
+import fr.timeto.rpgame.core.Server;
 import fr.timeto.timutilslib.CustomFonts;
 import org.imgscalr.Scalr;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 
 public class Room extends JPanel implements SwingerEventListener {
 
+    ArrayList<STexturedButton> setGMButtonList = new ArrayList<>();
     STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/assets/rpgame/room/quit-normal.png"), getResourceIgnorePath("/assets/rpgame/room/quit-hover.png"));
     public LoadingSpinner spinner = new LoadingSpinner(new Color(210, 214, 86), 55, 8);
     JLabel idLabel = new JLabel();
@@ -41,6 +45,25 @@ public class Room extends JPanel implements SwingerEventListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        int iiii = 0;
+        while (iiii != setGMButtonList.size()) {
+            this.remove(setGMButtonList.get(iiii));
+            iiii++;
+        }
+
+        ConnectedClient thisClient = null;
+        if (Client.connectedClients != null) {
+            int iii = 0;
+            while (iii != Client.connectedClients.size()) {
+                ConnectedClient tested = Client.connectedClients.get(iii);
+                if (Objects.equals(Client.id, tested.getId())) {
+                    thisClient = tested;
+                    break;
+                }
+                iii++;
+            }
+        }
 
         float widthFactor = 1;
         float heightFactor = 1;
@@ -99,11 +122,11 @@ public class Room extends JPanel implements SwingerEventListener {
                         10);
 
                 Font font = CustomFonts.kollektifBoldFont.deriveFont(30f * heightFactor);
-                String text; // = Client.connectedClients.get(i).getCharacter()
+                String text;
                 if (client.isGM()) {
                     text = "Ma\u00eetre du jeu";
                 } else {
-                    if (client.getCharacter() == null) {
+                    if (Objects.equals(client.getCharacter().getName(), "Undefined")) {
                         text = "Personnage non choisi";
                     } else {
                         text = client.getCharacter().getFullName();
@@ -129,6 +152,39 @@ public class Room extends JPanel implements SwingerEventListener {
                 g2d.setColor(colorForName);
                 g2d.setFont(font);
                 g2d.drawString(text, nameZoneX + (27 * widthFactor), Math.round(nameZoneY + dimension.getHeight() - ((8 * heightFactor) * 2)));
+
+                try {
+                    if (thisClient.isGM() && !Objects.equals(Client.id, client.getId())) {
+                        client.initSetGMButton();
+                        client.setGMButton.addEventListener(e -> {
+                            try {
+                                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
+                        client.setGMButton.setBounds(Math.round((990 + 813 - 30) * widthFactor), nameZoneY);
+                        this.add(client.setGMButton);
+                        setGMButtonList.add(client.setGMButton);
+                        // TODO Mettre le bouton au bon endroit + le faire disparaitre qd la personne est plus là + pas cliquable sur nous-meme
+                    }
+
+                    if (client.isGM()) {
+                        client.initSetGMButton();
+                        client.setGMButton.addEventListener(e -> {
+                            try {
+                                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
+                        client.setGMButton.setBounds(Math.round((990 + 813 - 30) * widthFactor), nameZoneY);
+                        this.add(client.setGMButton);
+                        client.setGMButton.setEnabled(false);
+                        setGMButtonList.add(client.setGMButton);
+                    }
+
+                } catch (NullPointerException ignored) {}
 
                 y += 162;
                 i++;

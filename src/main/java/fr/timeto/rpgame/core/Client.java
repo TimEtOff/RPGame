@@ -143,28 +143,27 @@ public class Client {
             System.out.println("[" + dtf.format(now) + "] [" + publicIP + " (Me)] " + str);
         }
 
-        private static int nbTryGetConnectedClients = 1;
         protected static void getConnectedClients(String txtFromServer) {
-            System.out.println(txtFromServer);
+            if (txtFromServer != null) {
+                System.out.println(txtFromServer);
+            }
 
             try {
-                println("Get connected clients - try " + nbTryGetConnectedClients);
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                Object object = ois.readUnshared();
-                connectedClients = (ArrayList<ConnectedClient>) object;
-                nbTryGetConnectedClients = 1;
-                println("Got connected clients list");
+                BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String line = readerChannel.readLine();
+                if (line.startsWith("ArrayList<ConnectedClient>")) {
+                    connectedClients = ConnectedClient.connectedClientsFromString(line);
+                    println("Got connected clients");
+                } else {
+                    sendToServer(Server.FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.str + " Failed to get connected clients, retry");
+                }
+
                 if (gameFrame.getContentPane() instanceof Room) {
                     ((Room) gameFrame.getContentPane()).spinner.setVisible(false);
                 }
 
             } catch (Exception e) {
-                try {
-                    nbTryGetConnectedClients++;
-                    sendToServer(Server.FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.str + " StreamCorruptedException, retry");
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                throw new RuntimeException(e);
             }
 
             if (gameFrame.getContentPane() instanceof Room) {
@@ -210,5 +209,11 @@ public class Client {
             System.out.println("Exception: " +e);
             return null;
         }
+    }
+
+    public static String removeLastChar(String s) {
+        return (s == null || s.length() == 0)
+                ? null
+                : (s.substring(0, s.length() - 1));
     }
 }
