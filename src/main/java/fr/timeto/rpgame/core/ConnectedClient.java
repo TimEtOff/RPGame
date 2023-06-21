@@ -14,7 +14,11 @@ import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 public class ConnectedClient implements Serializable {
 
     protected transient final Socket socket;
-    public transient STexturedButton setGMButton;
+    public transient STexturedButton setGMButton = new STexturedButton(
+            getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"),
+            getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"),
+            getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png")
+        );
 
     protected String id;
     protected boolean idSet = false;

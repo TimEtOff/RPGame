@@ -69,22 +69,23 @@ public class Room extends JPanel implements SwingerEventListener {
         float heightFactor = 1;
 
         if (this.getWidth() < 1920) {
-            widthFactor = (float)this.getWidth()/1920;
+            widthFactor = (float) this.getWidth() / 1920;
         }
 
         if (this.getHeight() < 1080) {
-            heightFactor = (float)this.getHeight()/1080;
+            heightFactor = (float) this.getHeight() / 1080;
         }
 
-        int quitButtonWidth = Math.round(72*widthFactor);
-        int quitButtonHeight = Math.round(54*heightFactor);
+        int quitButtonWidth = Math.round(72 * widthFactor);
+        int quitButtonHeight = Math.round(54 * heightFactor);
         quitButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/quit-normal.png"), quitButtonWidth, quitButtonHeight));
         quitButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/quit-hover.png"), quitButtonWidth, quitButtonHeight));
-        quitButton.setBounds(Math.round(20*widthFactor), Math.round(20*heightFactor));
-        spinner.setPreferredSize(new Dimension(Math.round(55*widthFactor), Math.round(55*widthFactor)));
-        spinner.setThickness(Math.round(8*widthFactor));
-        spinner.setBounds(Client.gameFrame.getWidth()-Math.round(120*widthFactor), Math.round(10*heightFactor), (int) Math.round(spinner.getPreferredSize().getWidth()+50*widthFactor), (int) Math.round(spinner.getPreferredSize().getHeight()+50*heightFactor));
-        idLabel.setBounds(Math.round(50*widthFactor), Client.gameFrame.getHeight() - 75, Client.gameFrame.getWidth() - Math.round(100*widthFactor), 25);
+        quitButton.setBounds(Math.round(20 * widthFactor), Math.round(20 * heightFactor));
+        spinner.setPreferredSize(new Dimension(Math.round(55 * widthFactor), Math.round(55 * widthFactor)));
+        spinner.setThickness(Math.round(8 * widthFactor));
+        spinner.setBounds(Client.gameFrame.getWidth() - Math.round(120 * widthFactor), Math.round(10 * heightFactor), (int) Math.round(spinner.getPreferredSize().getWidth() + 50 * widthFactor), (int) Math.round(spinner.getPreferredSize().getHeight() + 50 * heightFactor));
+        idLabel.setBounds(Math.round(50 * widthFactor), Client.gameFrame.getHeight() - 75, Client.gameFrame.getWidth() - Math.round(100 * widthFactor), 25);
+        idLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f * heightFactor));
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -92,18 +93,18 @@ public class Room extends JPanel implements SwingerEventListener {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         g2d.setColor(new Color(52, 8, 8));
-        g2d.fillRoundRect(Math.round(960*widthFactor),
-                Math.round(99*heightFactor),
-                Math.round(899*widthFactor),
-                Math.round(932*heightFactor),
+        g2d.fillRoundRect(Math.round(960 * widthFactor),
+                Math.round(99 * heightFactor),
+                Math.round(899 * widthFactor),
+                Math.round(932 * heightFactor),
                 10,
                 10);
 
         g2d.setColor(new Color(61, 9, 9));
-        g2d.fillRoundRect(Math.round(963*widthFactor),
-                Math.round(102*heightFactor),
-                Math.round(893*widthFactor),
-                Math.round(926*heightFactor),
+        g2d.fillRoundRect(Math.round(963 * widthFactor),
+                Math.round(102 * heightFactor),
+                Math.round(893 * widthFactor),
+                Math.round(926 * heightFactor),
                 10,
                 10);
 
@@ -154,23 +155,31 @@ public class Room extends JPanel implements SwingerEventListener {
                 g2d.drawString(text, nameZoneX + (27 * widthFactor), Math.round(nameZoneY + dimension.getHeight() - ((8 * heightFactor) * 2)));
 
                 try {
+                    int gmButtonWidth = Math.round(48 * widthFactor);
+                    int gmButtonHeight = Math.round(37 * heightFactor);
+
                     if (thisClient.isGM() && !Objects.equals(Client.id, client.getId())) {
-                        client.initSetGMButton();
-                        client.setGMButton.addEventListener(e -> {
-                            try {
-                                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        });
+                        if (!client.setGMButton.isHover()) {
+                            client.setGMButton.addEventListener(e -> {
+                                try {
+                                    Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            });
+                        }
+                        client.setGMButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"), gmButtonWidth, gmButtonHeight));
+                        client.setGMButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
+                        client.setGMButton.setTextureDisabled(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setBounds(Math.round((990 + 813 - 30) * widthFactor), nameZoneY);
-                        this.add(client.setGMButton);
+                        if (!client.setGMButton.isHover()) {
+                            this.add(client.setGMButton);
+                        }
                         setGMButtonList.add(client.setGMButton);
                         // TODO Mettre le bouton au bon endroit + le faire disparaitre qd la personne est plus là + pas cliquable sur nous-meme
                     }
 
                     if (client.isGM()) {
-                        client.initSetGMButton();
                         client.setGMButton.addEventListener(e -> {
                             try {
                                 Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
@@ -178,19 +187,22 @@ public class Room extends JPanel implements SwingerEventListener {
                                 throw new RuntimeException(ex);
                             }
                         });
+                        client.setGMButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"), gmButtonWidth, gmButtonHeight));
+                        client.setGMButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
+                        client.setGMButton.setTextureDisabled(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setBounds(Math.round((990 + 813 - 30) * widthFactor), nameZoneY);
                         this.add(client.setGMButton);
                         client.setGMButton.setEnabled(false);
                         setGMButtonList.add(client.setGMButton);
                     }
 
-                } catch (NullPointerException ignored) {}
+                } catch (NullPointerException ignored) {
+                }
 
                 y += 162;
                 i++;
             }
         }
-
     }
 
     @Override

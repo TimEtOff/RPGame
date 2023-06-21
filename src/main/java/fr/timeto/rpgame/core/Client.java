@@ -162,6 +162,7 @@ public class Client {
                     ((Room) gameFrame.getContentPane()).spinner.setVisible(false);
                 }
 
+            } catch (SocketException ignored) {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
