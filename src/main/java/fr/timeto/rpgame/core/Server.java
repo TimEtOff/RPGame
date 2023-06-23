@@ -15,6 +15,7 @@ import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 
@@ -112,14 +113,14 @@ public class Server {
                     if (info == FROM_CLIENT.TEXT.i) {
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
-                        String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.id + ")] " + line;
+                        String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.getId() + ")] " + line;
                         blankPrintln(newLine);
 
                     } else if (info == FROM_CLIENT.SENDING_ID.i) {
                         String[] split = line.split(Pattern.quote(FROM_CLIENT.SENDING_ID.str));
                         String id = split[1].substring(0, 10).replaceAll(" ", "");
                         if (connectedClient.setId(id)) {
-                            printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.id + ") connected", true);
+                            printToAllSockets(getIPFromSocket(socket) + " (" + connectedClient.getId() + ") connected", true);
                             sendConnectedClientsToAll();
                         }
 
@@ -133,8 +134,24 @@ public class Server {
                         // TODO temp tant que le bouton client marche pas
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
-                        String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.id + ")] " + line;
+                        String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.getId() + ")] " + line;
                         blankPrintln(newLine);
+                        if (connectedClient.isGM()) {
+                            String newGM = line.split(Pattern.quote(FROM_CLIENT.SET_GM.str))[1].substring(0, 10).replaceAll(" ", "");
+                            connectedClient.setGM(false);
+                            int i = 0;
+                            while (i != connectedClients.size()) {
+                                if (Objects.equals(connectedClients.get(i).getId(), newGM)) {
+                                    connectedClients.get(i).setGM(true);
+                                    break;
+                                }
+                                i++;
+                            }
+                            printToAllSockets(line, false);
+                            sendConnectedClientsToAll();
+                        } else {
+                            printlnError("GM didn't change: user wasn't GM himself before order");
+                        }
                     }
                 }
                 throw new SocketException("Disconnected ?");
@@ -181,7 +198,7 @@ public class Server {
         LocalDateTime now = LocalDateTime.now();
         String newStr;
         if (appearLikePrivate) {
-            newStr = "[" + dtf.format(now) + "] [Server/To " + getIPFromSocket(client.socket) + " (" + client.id + ") only] " + str;
+            newStr = "[" + dtf.format(now) + "] [Server/To " + getIPFromSocket(client.socket) + " (" + client.getId() + ") only] " + str;
         } else {
             newStr = "[" + dtf.format(now) + "] [Server] " + str;
         }
@@ -265,10 +282,6 @@ public class Server {
 
     protected static void sendConnectedClientsToAll() {
 
-        for (ConnectedClient connectedClient : connectedClients) {
-            blankPrintln(connectedClient.id);
-        }
-
         if (!connectedClients.isEmpty()) {
             int i = 0;
             println(Client.FROM_SERVER.SENDING_CONNECTED_CLIENTS.str + " Sending actual connected clients");
@@ -305,7 +318,7 @@ public class Server {
     protected static void disconnectClient(ConnectedClient client) {
         connectedClients.remove(client);
         try {
-            printToAllSockets(getIPFromSocket(client.socket) + " (" + client.id + ") disconnected", true);
+            printToAllSockets(getIPFromSocket(client.socket) + " (" + client.getId() + ") disconnected", true);
         } catch (SocketException ignored) {}
         catch (IOException e) {
             throw new RuntimeException(e);

@@ -5,13 +5,11 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.core.Client;
 import fr.timeto.rpgame.core.ConnectedClient;
-import fr.timeto.rpgame.core.Server;
 import fr.timeto.timutilslib.CustomFonts;
 import org.imgscalr.Scalr;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -48,7 +46,9 @@ public class Room extends JPanel implements SwingerEventListener {
 
         int iiii = 0;
         while (iiii != setGMButtonList.size()) {
-            this.remove(setGMButtonList.get(iiii));
+            if (!setGMButtonList.get(iiii).isHover()) {
+                this.remove(setGMButtonList.get(iiii));
+            }
             iiii++;
         }
 
@@ -159,15 +159,6 @@ public class Room extends JPanel implements SwingerEventListener {
                     int gmButtonHeight = Math.round(37 * heightFactor);
 
                     if (thisClient.isGM() && !Objects.equals(Client.id, client.getId())) {
-                        if (!client.setGMButton.isHover()) {
-                            client.setGMButton.addEventListener(e -> {
-                                try {
-                                    Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
-                                } catch (IOException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-                            });
-                        }
                         client.setGMButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureDisabled(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
@@ -180,13 +171,6 @@ public class Room extends JPanel implements SwingerEventListener {
                     }
 
                     if (client.isGM()) {
-                        client.setGMButton.addEventListener(e -> {
-                            try {
-                                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + client.getId() + "] This client is now GM");
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        });
                         client.setGMButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureDisabled(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));

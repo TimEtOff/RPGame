@@ -3,6 +3,7 @@ package fr.timeto.rpgame.core;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.character.Character;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class ConnectedClient implements Serializable {
             getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png")
         );
 
-    protected String id;
-    protected boolean idSet = false;
-    protected boolean isGM = false;
-    protected Character selectedChar = null;
+    private String id;
+    private boolean idSet = false;
+    private boolean isGM = false;
+    private Character selectedChar;
 
     @Override
     public String toString() {
@@ -42,14 +43,12 @@ public class ConnectedClient implements Serializable {
             String[] list = str.split(Pattern.quote("ConnectedClient["));
             String[] elements = correctSplit(Client.removeLastChar(list[1]));
 
-            ConnectedClient connectedClient = new ConnectedClient(
+            return new ConnectedClient(
                     elements[0],
                     Boolean.parseBoolean(elements[1]),
                     Boolean.parseBoolean(elements[2]),
                     Character.getFromString(elements[3])
             );
-
-            return connectedClient;
         }
 
         return null;
@@ -58,6 +57,13 @@ public class ConnectedClient implements Serializable {
     private ConnectedClient(String id, boolean idSet, boolean isGM, Character selectedChar) {
         this.id = id;
         this.idSet = idSet;
+        setGMButton.addEventListener(e -> {
+            try {
+                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + id + "] This client is now GM");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         this.isGM = isGM;
         this.selectedChar = selectedChar;
         this.socket = null;
@@ -73,6 +79,13 @@ public class ConnectedClient implements Serializable {
         this.socket = socket;
         this.id = id;
         idSet = true;
+        setGMButton.addEventListener(e -> {
+            try {
+                Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + id + "] This client is now GM");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         this.selectedChar = new Character("Undefined", "NotChosen");
     }
 
@@ -80,6 +93,13 @@ public class ConnectedClient implements Serializable {
         if (!idSet) {
             this.id = id;
             idSet = true;
+            setGMButton.addEventListener(e -> {
+                try {
+                    Client.sendToServer(Server.FROM_CLIENT.SET_GM.str + id + "] This client is now GM");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
             return true;
         } else {
             return false;
@@ -128,14 +148,14 @@ public class ConnectedClient implements Serializable {
     }
 
     public static String connectedClientsToString(ArrayList<ConnectedClient> arrayList) {
-        String str = "ArrayList<ConnectedClient>[";
+        StringBuilder str = new StringBuilder("ArrayList<ConnectedClient>[");
         int i = 0;
         if (arrayList.size() != 0) {
             while (i != arrayList.size()) {
-                str += arrayList.get(i).toString() + ",";
+                str.append(arrayList.get(i).toString()).append(",");
                 i++;
             }
-            str = Client.removeLastChar(str);
+            str = new StringBuilder(Client.removeLastChar(str.toString()));
         }
         return str + "]";
     }
