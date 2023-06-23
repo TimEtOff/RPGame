@@ -1,6 +1,11 @@
 package fr.timeto.rpgame.core;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -44,6 +49,7 @@ public class Server {
     protected static Saver infosSaver;
 
     protected static ArrayList<ConnectedClient> connectedClients = new ArrayList<>();
+    private static JDA bot;
 
     public static void main(String[] args) throws Exception {
 
@@ -57,8 +63,14 @@ public class Server {
         SERVER_INFOSFILE.createNewFile();
         infosSaver = new Saver(SERVER_INFOSFILE.toPath());
 
+        bot = JDABuilder.createDefault(SecretInfos.BOT_TOKEN)
+                .setActivity(Activity.playing("Tim's RPGame"))
+                .build();
+
+        bot.awaitReady();
+
         ServerSocket listener = new ServerSocket(SecretInfos.SERVER_PORT);
-        println("Server is now online");
+        printlnError("Server is now online");
         try
         {
             while (true)
@@ -101,7 +113,7 @@ public class Server {
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
                         String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.id + ")] " + line;
-                        System.out.println(newLine);
+                        blankPrintln(newLine);
 
                     } else if (info == FROM_CLIENT.SENDING_ID.i) {
                         String[] split = line.split(Pattern.quote(FROM_CLIENT.SENDING_ID.str));
@@ -122,7 +134,7 @@ public class Server {
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
                         String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.id + ")] " + line;
-                        System.out.println(newLine);
+                        blankPrintln(newLine);
                     }
                 }
                 throw new SocketException("Disconnected ?");
@@ -185,7 +197,7 @@ public class Server {
         }
 
         if (serverConsoleIncluded) {
-            System.out.println(newStr);
+            blankPrintln(newStr);
         }
     }
 
@@ -216,7 +228,7 @@ public class Server {
         }
 
         if (serverConsoleIncluded) {
-            System.out.println(newStr);
+            blankPrintln(newStr);
         }
     }
 
@@ -254,7 +266,7 @@ public class Server {
     protected static void sendConnectedClientsToAll() {
 
         for (ConnectedClient connectedClient : connectedClients) {
-            System.out.println(connectedClient.id);
+            blankPrintln(connectedClient.id);
         }
 
         if (!connectedClients.isEmpty()) {
@@ -311,7 +323,60 @@ public class Server {
     public static void println(String str) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println("[" + dtf.format(now) + "] [Server/Private] " + str);
+        blankPrintln("[" + dtf.format(now) + "] [Server/Private] " + str);
+    }
+
+    public static void printlnError(String str) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        blankErrorPrintln("[" + dtf.format(now) + "] [Server/Private] " + str);
+    }
+
+    static MessageChannel channel;
+    static Message lastMessage;
+    
+    public static void blankPrintln(String str) {
+        System.out.println(str);
+        try {
+            channel = (MessageChannel) bot.getGuildById(1121118638779412654L).getGuildChannelById(1121118813463785484L);
+            if (lastMessage == null) {
+                str = "```diff\n  " + str + "\n```";
+                lastMessage = channel.sendMessage(str).complete();
+            } else {
+                String newStr = Client.removeLastChar(Client.removeLastChar(Client.removeLastChar(lastMessage.getContentRaw())));
+                newStr = newStr + "  " + str + "\n```";
+                try {
+                    lastMessage = lastMessage.editMessage(newStr).complete();
+                } catch (IllegalArgumentException e) {
+                    str = "```diff\n  " + str + "\n```";
+                    lastMessage = channel.sendMessage(str).complete();
+                }
+            }
+        } catch (NullPointerException ignored) {
+            System.err.println("ERREUR NULL BOT");
+        }
+    }
+    
+    public static void blankErrorPrintln(String str) {
+        System.err.println(str);
+        try {
+            channel = (MessageChannel) bot.getGuildById(1121118638779412654L).getGuildChannelById(1121118813463785484L);
+            if (lastMessage == null) {
+                str = "```diff\n! " + str + "\n```";
+                lastMessage = channel.sendMessage(str).complete();
+            } else {
+                String newStr = Client.removeLastChar(Client.removeLastChar(Client.removeLastChar(lastMessage.getContentRaw())));
+                newStr = newStr + "! " + str + "\n```";
+                try {
+                    lastMessage = lastMessage.editMessage(newStr).complete();
+                } catch (IllegalArgumentException e) {
+                    str = "```diff\n! " + str + "\n```";
+                    lastMessage = channel.sendMessage(str).complete();
+                }
+            }
+        } catch (NullPointerException ignored) {
+            System.err.println("ERREUR NULL BOT");
+        }
     }
 
     public static String getIPFromSocket(Socket socket) {
