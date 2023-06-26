@@ -1,6 +1,7 @@
 package fr.timeto.rpgame.core;
 
 import fr.timeto.rpgame.display.GameFrame;
+import fr.timeto.rpgame.display.MainMenu;
 import fr.timeto.rpgame.display.Room;
 
 import javax.swing.*;
@@ -81,6 +82,10 @@ public class Client {
                 socket = new Socket(ip, SecretInfos.SERVER_PORT);
             } catch (ConnectException e) {
                 JOptionPane.showMessageDialog(null, "Echec de la connexion", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                if (gameFrame.getContentPane() instanceof MainMenu) {
+                    ((MainMenu) gameFrame.getContentPane()).spinner.setVisible(false);
+                }
+                return;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

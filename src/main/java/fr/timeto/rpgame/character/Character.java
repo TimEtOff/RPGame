@@ -3,21 +3,22 @@ package fr.timeto.rpgame.character;
 import fr.timeto.rpgame.core.Client;
 import fr.timeto.rpgame.core.ConnectedClient;
 
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public class Character implements Serializable {
 
     // TODO Doit avoir un max de 75 point de compétences
     protected String name;
-    protected String firstname;
+    protected String lastname;
 
     @Override
     public String toString() {
         return "Character[" +
 
                 name + "," +
-                firstname +
+                lastname +
 
                 "]";
     }
@@ -37,20 +38,30 @@ public class Character implements Serializable {
         return null;
     }
 
-    public Character(String name, String firstname) {
+    public Character(String name, String lastname) {
         this.name = name;
-        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getLastname() {
+        return lastname;
     }
 
     public String getFullName() {
-        return name + " " + firstname;
+        return name + " " + lastname;
+    }
+
+    public void writeToFile(Path out) throws IOException {
+        writeToFile(out.toFile());
+    }
+
+    public void writeToFile(File out) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(out));
+        writer.write(this.toString());
+        writer.close();
     }
 }

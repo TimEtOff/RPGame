@@ -16,7 +16,7 @@ public class MainMenu extends JPanel implements SwingerEventListener {
     STexturedButton connectButton = new STexturedButton(getResourceIgnorePath("/assets/rpgame/mainmenu/ConnectToServer-normal.png"), getResourceIgnorePath("/assets/rpgame/mainmenu/ConnectToServer-hover.png"));
     STexturedButton charactersButton = new STexturedButton(getResourceIgnorePath("/assets/rpgame/mainmenu/Characters-normal.png"), getResourceIgnorePath("/assets/rpgame/mainmenu/Characters-hover.png"));
     STexturedButton mapsButton = new STexturedButton(getResourceIgnorePath("/assets/rpgame/mainmenu/Maps-normal.png"), getResourceIgnorePath("/assets/rpgame/mainmenu/Maps-hover.png"));
-    LoadingSpinner spinner = new LoadingSpinner(new Color(210, 214, 86), 65, 8);
+    public final LoadingSpinner spinner = new LoadingSpinner(new Color(210, 214, 86), 65, 8);
     JLabel idLabel = new JLabel();
 
     public MainMenu() {
@@ -85,7 +85,7 @@ public class MainMenu extends JPanel implements SwingerEventListener {
                 Client.connectToServer();
             }
         } else if (src == charactersButton) {
-
+            Client.gameFrame.setContentPane(new CharacterCreator());
         } else if (src == mapsButton) {
 
         }

@@ -167,7 +167,6 @@ public class Room extends JPanel implements SwingerEventListener {
                             this.add(client.setGMButton);
                         }
                         setGMButtonList.add(client.setGMButton);
-                        // TODO Mettre le bouton au bon endroit + le faire disparaitre qd la personne est plus là + pas cliquable sur nous-meme
                     }
 
                     if (client.isGM()) {

@@ -131,7 +131,6 @@ public class Server {
                     } else if (info == FROM_CLIENT.ASK_FOR_CONNECTED_CLIENTS.i) {
                         sendConnectedClientsToSocket(connectedClient, false);
                     } else if (info == FROM_CLIENT.SET_GM.i) {
-                        // TODO temp tant que le bouton client marche pas
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
                         String newLine = "[" + dtf.format(now) + "] [" + getIPFromSocket(socket) + " (" + connectedClient.getId() + ")] " + line;
