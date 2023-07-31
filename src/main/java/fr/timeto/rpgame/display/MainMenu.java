@@ -5,9 +5,13 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.core.Client;
 import fr.timeto.timutilslib.CustomFonts;
+import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.regex.Pattern;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 
@@ -38,10 +42,26 @@ public class MainMenu extends JPanel implements SwingerEventListener {
         mapsButton.addEventListener(this);
         this.add(mapsButton);
 
-        idLabel.setText("Votre ID est " + Client.id);
+        idLabel.setText("Votre ID est " + Client.getId());
         idLabel.setForeground(new Color(128, 15, 15));
         idLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
         idLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        idLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                String newID = JOptionPane.showInputDialog("Changer l'ID pour: (10 caract\u00e8res alphanum\u00e9riques)");
+                Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+                boolean hasSpecialChar = p.matcher(newID).find();
+                if (newID.length() == 10 && !hasSpecialChar) {
+                    Client.setId(newID);
+                    idLabel.setText("Votre ID est " + Client.getId());
+                } else {
+                    PopUpMessages.errorMessage("Erreur", "10 caract\u00e8res alphanum\u00e9riques requis (accents exclus)");
+                }
+            }
+        });
         this.add(idLabel);
     }
 

@@ -37,7 +37,7 @@ public class Client {
     protected static Socket socket;
     public static GameFrame gameFrame;
     public static String publicIP;
-    public static String id;
+    private static String id;
 
     public static boolean isConnectedToServer = false;
 
@@ -219,5 +219,14 @@ public class Client {
         return (s == null || s.length() == 0)
                 ? null
                 : (s.substring(0, s.length() - 1));
+    }
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setId(String id) {
+        Client.id = id;
+        GameFrame.RP_CONFIGFILE_SAVER.set("id", id);
     }
 }

@@ -33,7 +33,7 @@ public class Room extends JPanel implements SwingerEventListener {
         quitButton.addEventListener(this);
         this.add(quitButton);
 
-        idLabel.setText("Votre ID est " + Client.id);
+        idLabel.setText("Votre ID est " + Client.getId());
         idLabel.setForeground(new Color(128, 15, 15));
         idLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
         idLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -57,7 +57,7 @@ public class Room extends JPanel implements SwingerEventListener {
             int iii = 0;
             while (iii != Client.connectedClients.size()) {
                 ConnectedClient tested = Client.connectedClients.get(iii);
-                if (Objects.equals(Client.id, tested.getId())) {
+                if (Objects.equals(Client.getId(), tested.getId())) {
                     thisClient = tested;
                     break;
                 }
@@ -135,7 +135,7 @@ public class Room extends JPanel implements SwingerEventListener {
                 }
 
                 Color colorForName = Color.WHITE;
-                if (Objects.equals(client.getId(), Client.id)) {
+                if (Objects.equals(client.getId(), Client.getId())) {
                     text = text + " (Vous)";
                     colorForName = new Color(237, 255, 152);
                 } else {
@@ -158,7 +158,7 @@ public class Room extends JPanel implements SwingerEventListener {
                     int gmButtonWidth = Math.round(48 * widthFactor);
                     int gmButtonHeight = Math.round(37 * heightFactor);
 
-                    if (thisClient.isGM() && !Objects.equals(Client.id, client.getId())) {
+                    if (thisClient.isGM() && !Objects.equals(Client.getId(), client.getId())) {
                         client.setGMButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-normal.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
                         client.setGMButton.setTextureDisabled(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/setGM-hover.png"), gmButtonWidth, gmButtonHeight));
