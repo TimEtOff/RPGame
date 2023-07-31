@@ -3,8 +3,8 @@ package fr.timeto.rpgame.core;
 import fr.timeto.rpgame.display.GameFrame;
 import fr.timeto.rpgame.display.MainMenu;
 import fr.timeto.rpgame.display.Room;
+import fr.timeto.timutilslib.PopUpMessages;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -81,7 +81,7 @@ public class Client {
                 }
                 socket = new Socket(ip, SecretInfos.SERVER_PORT);
             } catch (ConnectException e) {
-                JOptionPane.showMessageDialog(null, "Echec de la connexion", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                PopUpMessages.errorMessage("Erreur de connexion", "Echec de la connexion");
                 if (gameFrame.getContentPane() instanceof MainMenu) {
                     ((MainMenu) gameFrame.getContentPane()).spinner.setVisible(false);
                 }
@@ -93,10 +93,8 @@ public class Client {
             println("You are now connected to the server");
             gameFrame.setContentPane(new Room());
 
-            BufferedWriter writerChannel = null;
-            BufferedReader readerChannel = null;
+            BufferedReader readerChannel;
             try {
-                writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -109,7 +107,7 @@ public class Client {
             }
 
             String line;
-            while (true && isConnectedToServer) {
+            while (isConnectedToServer) {
                 try {
                     if (!((line = readerChannel.readLine()) != null)) break;
                 } catch (SocketException e) {
@@ -173,7 +171,7 @@ public class Client {
             }
 
             if (gameFrame.getContentPane() instanceof Room) {
-                ((Room) gameFrame.getContentPane()).repaint();
+                gameFrame.getContentPane().repaint();
             }
         }
 

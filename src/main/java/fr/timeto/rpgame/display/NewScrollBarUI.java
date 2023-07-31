@@ -12,7 +12,7 @@ public class NewScrollBarUI extends BasicScrollBarUI {
     protected static Color staticThumbColor = new Color(43, 7, 7);
     protected static Color staticThumbDarkShadowColor = new Color(43, 7, 7);
     protected static Color staticThumbLightShadowColor = new Color(43, 7, 7);
-    protected static Color staticThumbHighlightColor = new Color(36, 4, 4);
+    protected static Color staticThumbHighlightColor = new Color(43, 7, 7);
     protected static Color staticButtonBackgroundColor = new Color(30,30,30);
     protected static Color staticButtonShadowColor = Color.RED.darker();
     protected static Color staticButtonDarkShadowColor = Color.RED;
