@@ -182,6 +182,7 @@ public class ConnectedClient implements Serializable {
         int index = 0;
         int i = 0;
         boolean getChar = true;
+        int classLevel = 0;
         list.add("");
 
         while (i != chars.length) {
@@ -190,16 +191,20 @@ public class ConnectedClient implements Serializable {
                         index++;
                         list.add("");
                     } else {
-                        list.set(index, list.get(index) + String.valueOf(chars[i]));
+                        list.set(index, list.get(index) + chars[i]);
                     }
                 } else if (chars[i] == '[') {
+                    classLevel++;
                     getChar = false;
-                    list.set(index, list.get(index) + String.valueOf(chars[i]));
+                    list.set(index, list.get(index) + chars[i]);
                 } else if (chars[i] == ']') {
-                    getChar = true;
-                    list.set(index, list.get(index) + String.valueOf(chars[i]));
+                    classLevel--;
+                    if (classLevel == 0) {
+                        getChar = true;
+                    }
+                    list.set(index, list.get(index) + chars[i]);
                 } else {
-                    list.set(index, list.get(index) + String.valueOf(chars[i]));
+                    list.set(index, list.get(index) + chars[i]);
                 }
             i++;
         }

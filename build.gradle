@@ -24,7 +24,6 @@ dependencies {
     implementation('com.github.TimEtOff:TimUtilsLib:8ebcad452b312494aa1384fa739af9f9b293d26d')
     implementation('fr.flowarg:openlauncherlib:3.2.6')
     implementation("net.dv8tion:JDA:5.0.0-beta.11")
-    implementation("net.finmath:finmath-lib:1.2.19")
 }
 
 test {

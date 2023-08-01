@@ -55,7 +55,7 @@ public class AbilityCategory extends ArrayList<Ability> implements Serializable 
 
             ArrayList<Ability> abilities = new ArrayList<>();
             int i = 0;
-            while (i != Integer.parseInt(elements[3])-1) {
+            while (i != Integer.parseInt(elements[3])) {
                 abilities.add(Ability.getFromString(elements[i + 4]));
                 i++;
             }
@@ -70,6 +70,16 @@ public class AbilityCategory extends ArrayList<Ability> implements Serializable 
         }
 
         return null;
+    }
+
+    public int getTotalCategoryLevel() {
+        int i = 0;
+        int level = categoryLevel;
+        while (i != numberOfAbilities) {
+            level += this.get(i).getLevel();
+            i++;
+        }
+        return level;
     }
 
     public void setName(String name) {

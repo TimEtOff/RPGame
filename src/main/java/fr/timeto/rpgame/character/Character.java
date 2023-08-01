@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
 
 public class Character implements Serializable {
 
-    // TODO Doit avoir un max de 75 point de compétences
+    // TODO Doit avoir un max de 75 point de compétences -- 70 coompétences + 5 talents
     protected String name;
     protected String lastname;
-    protected AbilityCategory consitutionAbilities = new AbilityCategory(false, "Constitution", 0, new Ability("Force", 0), new Ability("Résistance", 0));
-    protected AbilityCategory mentalAbilities = new AbilityCategory(false, "Mental", 0, new Ability("Intellect", 0), new Ability("Eloquence", 0));
-    protected AbilityCategory dexteriteAbilities = new AbilityCategory(false, "Dextérité", 0, new Ability("Agilité", 0), new Ability("Furtivité", 0));
-    protected AbilityCategory survieAbilities = new AbilityCategory(false, "Survie", 0, new Ability("Perception", 0), new Ability("Savoir-faire", 0));
-    protected AbilityCategory specialAbilities1 = new AbilityCategory(true, "", 0, new Ability("", 0), new Ability("", 0), new Ability("", 0));
-    protected AbilityCategory specialAbilities2 = new AbilityCategory(true, "", 0, new Ability("", 0), new Ability("", 0), new Ability("", 0));
+    public AbilityCategory consitutionAbilities = new AbilityCategory(false, "Constitution", 0, new Ability("Force", 0), new Ability("Résistance", 0));
+    public AbilityCategory mentalAbilities = new AbilityCategory(false, "Mental", 0, new Ability("Intellect", 0), new Ability("Eloquence", 0));
+    public AbilityCategory dexteriteAbilities = new AbilityCategory(false, "Dextérité", 0, new Ability("Agilité", 0), new Ability("Furtivité", 0));
+    public AbilityCategory survieAbilities = new AbilityCategory(false, "Survie", 0, new Ability("Perception", 0), new Ability("Savoir-faire", 0));
+    public AbilityCategory specialAbilities1 = new AbilityCategory(true, "", 0, new Ability("", 0), new Ability("", 0), new Ability("", 0));
+    public AbilityCategory specialAbilities2 = new AbilityCategory(true, "", 0, new Ability("", 0), new Ability("", 0), new Ability("", 0));
 
     @Override
     public String toString() {
@@ -25,12 +25,12 @@ public class Character implements Serializable {
 
                 name + "," +
                 lastname + "," +
-                consitutionAbilities + "," +
-                mentalAbilities + "," +
-                dexteriteAbilities + "," +
-                survieAbilities + "," +
-                specialAbilities1 + "," +
-                specialAbilities2 +
+                consitutionAbilities.toString() + "," +
+                mentalAbilities.toString() + "," +
+                dexteriteAbilities.toString() + "," +
+                survieAbilities.toString() + "," +
+                specialAbilities1.toString() + "," +
+                specialAbilities2.toString() +
 
                 "]";
     }
@@ -75,6 +75,36 @@ public class Character implements Serializable {
         this.survieAbilities = survieAbilities;
         this.specialAbilities1 = specialAbilities1;
         this.specialAbilities2 = specialAbilities2;
+    }
+
+    public int getTotalLevel() {
+        return consitutionAbilities.getTotalCategoryLevel() +
+                mentalAbilities.getTotalCategoryLevel() +
+                dexteriteAbilities.getTotalCategoryLevel() +
+                survieAbilities.getTotalCategoryLevel() +
+                specialAbilities1.getTotalCategoryLevel() +
+                specialAbilities2.getTotalCategoryLevel();
+    }
+
+    public int verifyAbilityChange(int oldAbilityLevel, int newAbilityLevel) {
+        if (newAbilityLevel > 13) {
+            newAbilityLevel = 13;
+        }
+
+        if (getTotalLevel() - oldAbilityLevel + newAbilityLevel > 70) {
+            newAbilityLevel = 70 - getTotalLevel() + oldAbilityLevel;
+        }
+
+        return newAbilityLevel;
+
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getName() {

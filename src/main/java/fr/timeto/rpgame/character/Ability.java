@@ -1,5 +1,6 @@
 package fr.timeto.rpgame.character;
 
+import fr.timeto.rpgame.core.Client;
 import fr.timeto.rpgame.core.ConnectedClient;
 
 import java.io.Serializable;
@@ -28,8 +29,8 @@ public class Ability implements Serializable {
     public static Ability getFromString(String str) {
         if (str.startsWith("Ability[")) {
             String[] list = str.split(Pattern.quote("Ability["));
-        //    String[] elements = ConnectedClient.correctSplit(Client.removeLastChar(list[1]));
-            String[] elements = ConnectedClient.correctSplit(list[1]);
+            String[] elements = ConnectedClient.correctSplit(Client.removeLastChar(list[1]));
+        //    String[] elements = ConnectedClient.correctSplit(list[1]);
 
             return new Ability(
                     elements[0],
