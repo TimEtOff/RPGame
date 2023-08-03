@@ -5,6 +5,7 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.character.Character;
+import fr.timeto.rpgame.character.Talent;
 import fr.timeto.rpgame.core.Client;
 import fr.timeto.rpgame.core.ConnectedClient;
 import fr.timeto.timutilslib.CustomFonts;
@@ -14,10 +15,13 @@ import org.imgscalr.Scalr;
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 
@@ -31,6 +35,16 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
 
     JTextField nameTextField1 = new JTextField();
     JTextField nameTextField2 = new JTextField();
+
+    JTextField talent1TextField = new JTextField();
+    JTextField talent1LevelTextField = new JTextField();
+    JLabel talent1AbilityLabel = new JLabel();
+    Talent.TALENT_ABILITY talent1Ability = Talent.TALENT_ABILITY.NULL;
+
+    JTextField talent2TextField = new JTextField();
+    JTextField talent2LevelTextField = new JTextField();
+    JLabel talent2AbilityLabel = new JLabel();
+    Talent.TALENT_ABILITY talent2Ability = Talent.TALENT_ABILITY.NULL;
 
     JTextField constitutionTextField = new JTextField();
     JTextField forceTextField = new JTextField();
@@ -101,6 +115,84 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         nameTextField2.setFont(font);
         nameTextField2.setBorder(null);
         this.add(nameTextField2);
+
+        talent1TextField.setBounds(781, 700, 206, 52); // +5 +0 -10 -0
+        talent1TextField.setForeground(Color.WHITE);
+        talent1TextField.setCaretColor(Color.WHITE);
+        talent1TextField.setOpaque(false);
+        talent1TextField.setFont(font);
+        talent1TextField.setBorder(null);
+        this.add(talent1TextField);
+
+        talent1LevelTextField.setBounds(713, 704, 48, 48); // +6 +7 -10 -10
+        talent1LevelTextField.setForeground(Color.WHITE);
+        talent1LevelTextField.setCaretColor(Color.WHITE);
+        talent1LevelTextField.setOpaque(false);
+        talent1LevelTextField.setFont(font);
+        talent1LevelTextField.setBorder(null);
+        talent1LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) talent1LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(talent1LevelTextField);
+
+        talent1AbilityLabel.setBounds(1008, 700, 67, 52); // +5 +0 -10 -0
+        talent1AbilityLabel.setForeground(Color.WHITE);
+        talent1AbilityLabel.setOpaque(false);
+        talent1AbilityLabel.setFont(font);
+        talent1AbilityLabel.setBorder(null);
+        talent1AbilityLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                JPanel panel = new JPanel(new GridBagLayout());
+                JComboBox comboBox = new JComboBox(Talent.TALENT_ABILITY.values()); comboBox.setSelectedIndex(talent1Ability.ordinal());
+                JOptionPane.showMessageDialog(null, comboBox, "Comp\u00e9tence Talent 1",
+                        JOptionPane.QUESTION_MESSAGE);
+                panel.add(comboBox);
+                talent1Ability = (Talent.TALENT_ABILITY) comboBox.getSelectedItem();
+                talent1AbilityLabel.setText(Talent.getAbilityShortName(talent1Ability));
+            }
+        });
+        this.add(talent1AbilityLabel);
+
+        talent2TextField.setBounds(781, 772, 206, 52); // +5 +0 -10 -0
+        talent2TextField.setForeground(Color.WHITE);
+        talent2TextField.setCaretColor(Color.WHITE);
+        talent2TextField.setOpaque(false);
+        talent2TextField.setFont(font);
+        talent2TextField.setBorder(null);
+        this.add(talent2TextField);
+
+        talent2LevelTextField.setBounds(713, 776, 48, 48); // +6 +7 -10 -10
+        talent2LevelTextField.setForeground(Color.WHITE);
+        talent2LevelTextField.setCaretColor(Color.WHITE);
+        talent2LevelTextField.setOpaque(false);
+        talent2LevelTextField.setFont(font);
+        talent2LevelTextField.setBorder(null);
+        talent2LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) talent2LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(talent2LevelTextField);
+
+        talent2AbilityLabel.setBounds(1008, 772, 67, 52); // +5 +0 -10 -0
+        talent2AbilityLabel.setForeground(Color.WHITE);
+        talent2AbilityLabel.setOpaque(false);
+        talent2AbilityLabel.setFont(font);
+        talent2AbilityLabel.setBorder(null);
+        talent2AbilityLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                JPanel panel = new JPanel(new GridBagLayout());
+                JComboBox comboBox = new JComboBox(Talent.TALENT_ABILITY.values()); comboBox.setSelectedIndex(talent2Ability.ordinal());
+                JOptionPane.showMessageDialog(null, comboBox, "Comp\u00e9tence Talent 2",
+                        JOptionPane.QUESTION_MESSAGE);
+                panel.add(comboBox);
+                talent2Ability = (Talent.TALENT_ABILITY) comboBox.getSelectedItem();
+                talent2AbilityLabel.setText(Talent.getAbilityShortName(talent2Ability));
+            }
+        });
+        this.add(talent2AbilityLabel);
 
         constitutionTextField.setBounds(1166, 150, 48, 48); // +6 +7 -10 -10
         constitutionTextField.setForeground(Color.WHITE);
@@ -437,6 +529,16 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         nameTextField1.setText(actualCharacter.character.getName());
         nameTextField2.setText(actualCharacter.character.getLastname());
 
+        talent1TextField.setText(actualCharacter.character.talent1.getName());
+        talent1LevelTextField.setText(actualCharacter.character.talent1.getLevel() + "");
+        talent1AbilityLabel.setText(actualCharacter.character.talent1.getAbilityShortName());
+        talent1Ability = actualCharacter.character.talent1.getAbility();
+
+        talent2TextField.setText(actualCharacter.character.talent2.getName());
+        talent2LevelTextField.setText(actualCharacter.character.talent2.getLevel() + "");
+        talent2AbilityLabel.setText(actualCharacter.character.talent2.getAbilityShortName());
+        talent2Ability = actualCharacter.character.talent2.getAbility();
+
         constitutionTextField.setText(actualCharacter.character.consitutionAbilities.getCategoryLevel() + "");
         forceTextField.setText(actualCharacter.character.consitutionAbilities.get(0).getLevel() + "");
         resistanceTextField.setText(actualCharacter.character.consitutionAbilities.get(1).getLevel() + "");
@@ -481,8 +583,76 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
 
         } else if (src == saveButton) {
 
-            actualCharacter.character.setName(nameTextField1.getText());
-            actualCharacter.character.setLastname(nameTextField2.getText());
+            if (!nameTextField1.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.setName(nameTextField1.getText());
+            }
+            if (!nameTextField2.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.setLastname(nameTextField2.getText());
+            }
+
+            actualCharacter.character.talent1.setName(talent1TextField.getText());
+            if (!talent1TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.talent1.setLevel(
+                        actualCharacter.character.verifyTalentChange(
+                                actualCharacter.character.talent1.getLevel(),
+                                Integer.parseInt(talent1LevelTextField.getText())
+                        )
+                );
+                if (talent1Ability == Talent.TALENT_ABILITY.NULL) {
+                    JPanel panel = new JPanel(new GridBagLayout());
+                    JComboBox comboBox = new JComboBox(Talent.TALENT_ABILITY.values()); comboBox.setSelectedIndex(talent1Ability.ordinal());
+                    JOptionPane.showMessageDialog(null, comboBox, "Comp\u00e9tence Talent 1",
+                            JOptionPane.QUESTION_MESSAGE);
+                    panel.add(comboBox);
+                    talent1Ability = (Talent.TALENT_ABILITY) comboBox.getSelectedItem();
+                    talent1AbilityLabel.setText(Talent.getAbilityShortName(talent1Ability));
+
+                    if (talent1Ability == Talent.TALENT_ABILITY.NULL) {
+                        talent1Ability = Talent.TALENT_ABILITY.values()[new Random().nextInt(Talent.TALENT_ABILITY.values().length-1) +1];
+                        actualCharacter.character.talent1.setAbility(talent1Ability);
+                    } else {
+                        actualCharacter.character.talent1.setAbility(talent1Ability);
+                    }
+                } else {
+                    actualCharacter.character.talent1.setAbility(talent1Ability);
+                }
+
+            } else {
+                actualCharacter.character.talent1.setLevel(0);
+                actualCharacter.character.talent1.setAbility(Talent.TALENT_ABILITY.NULL);
+            }
+
+            actualCharacter.character.talent2.setName(talent2TextField.getText());
+            if (!talent2TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.talent2.setLevel(
+                        actualCharacter.character.verifyTalentChange(
+                                actualCharacter.character.talent2.getLevel(),
+                                Integer.parseInt(talent2LevelTextField.getText())
+                        )
+                );
+                if (talent2Ability == Talent.TALENT_ABILITY.NULL) {
+                    JPanel panel = new JPanel(new GridBagLayout());
+                    JComboBox comboBox = new JComboBox(Talent.TALENT_ABILITY.values()); comboBox.setSelectedIndex(talent2Ability.ordinal());
+                    JOptionPane.showMessageDialog(null, comboBox, "Comp\u00e9tence Talent 1",
+                            JOptionPane.QUESTION_MESSAGE);
+                    panel.add(comboBox);
+                    talent2Ability = (Talent.TALENT_ABILITY) comboBox.getSelectedItem();
+                    talent2AbilityLabel.setText(Talent.getAbilityShortName(talent2Ability));
+
+                    if (talent2Ability == Talent.TALENT_ABILITY.NULL) {
+                        talent2Ability = Talent.TALENT_ABILITY.values()[new Random().nextInt(Talent.TALENT_ABILITY.values().length-1) +1];
+                        actualCharacter.character.talent2.setAbility(talent2Ability);
+                    } else {
+                        actualCharacter.character.talent2.setAbility(talent2Ability);
+                    }
+                } else {
+                    actualCharacter.character.talent2.setAbility(talent2Ability);
+                }
+
+            } else {
+                actualCharacter.character.talent2.setLevel(0);
+                actualCharacter.character.talent2.setAbility(Talent.TALENT_ABILITY.NULL);
+            }
 
             actualCharacter.character.consitutionAbilities.setCategoryLevel(
                     actualCharacter.character.verifyAbilityChange(
@@ -567,6 +737,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory1LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities1.setCategoryLevel(0);
             }
             actualCharacter.character.specialAbilities1.get(0).setName(specialCategory1Ability1TextField.getText());
             if (!specialCategory1Ability1TextField.getText().replaceAll(" ", "").equals("")) {
@@ -576,6 +748,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory1Ability1LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities1.get(0).setLevel(0);
             }
             actualCharacter.character.specialAbilities1.get(1).setName(specialCategory1Ability2TextField.getText());
             if (!specialCategory1Ability2TextField.getText().replaceAll(" ", "").equals("")) {
@@ -585,6 +759,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory1Ability2LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities1.get(1).setLevel(0);
             }
             actualCharacter.character.specialAbilities1.get(2).setName(specialCategory1Ability3TextField.getText());
             if (!specialCategory1Ability3TextField.getText().replaceAll(" ", "").equals("")) {
@@ -594,6 +770,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory1Ability3LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities1.get(2).setLevel(0);
             }
             actualCharacter.character.specialAbilities2.setName(specialCategory2TextField.getText());
             if (!specialCategory2TextField.getText().replaceAll(" ", "").equals("")) {
@@ -603,6 +781,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory2LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities2.setCategoryLevel(0);
             }
             actualCharacter.character.specialAbilities2.get(0).setName(specialCategory2Ability1TextField.getText());
             if (!specialCategory2Ability1TextField.getText().replaceAll(" ", "").equals("")) {
@@ -612,6 +792,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory2Ability1LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities2.get(0).setLevel(0);
             }
             actualCharacter.character.specialAbilities2.get(1).setName(specialCategory2Ability2TextField.getText());
             if (!specialCategory2Ability2TextField.getText().replaceAll(" ", "").equals("")) {
@@ -621,6 +803,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory2Ability2LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities2.get(1).setLevel(0);
             }
             actualCharacter.character.specialAbilities2.get(2).setName(specialCategory2Ability3TextField.getText());
             if (!specialCategory2Ability3TextField.getText().replaceAll(" ", "").equals("")) {
@@ -630,6 +814,8 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                                 Integer.parseInt(specialCategory2Ability3LevelTextField.getText())
                         )
                 );
+            } else {
+                actualCharacter.character.specialAbilities2.get(2).setLevel(0);
             }
 
             try {
@@ -681,11 +867,11 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             quitButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/room/quit-hover.png"), quitButtonWidth, quitButtonHeight));
             quitButton.setBounds(Math.round(20 * widthFactor), Math.round(20 * heightFactor));
 
-            int saveButtonWidth = Math.round(138 * widthFactor);
-            int saveButtonHeight = Math.round(31 * heightFactor);
+            int saveButtonWidth = Math.round(168 * widthFactor);
+            int saveButtonHeight = Math.round(46 * heightFactor);
             saveButton.setTexture(Scalr.resize(getResourceIgnorePath("/assets/rpgame/characters/save-normal.png"), saveButtonWidth, saveButtonHeight));
             saveButton.setTextureHover(Scalr.resize(getResourceIgnorePath("/assets/rpgame/characters/save-hover.png"), saveButtonWidth, saveButtonHeight));
-            saveButton.setBounds(Math.round(707 * widthFactor), Math.round(512 * heightFactor));
+            saveButton.setBounds(Math.round(707 * widthFactor), Math.round(544 * heightFactor));
 
             spinner.setPreferredSize(new Dimension(Math.round(55 * widthFactor), Math.round(55 * widthFactor)));
             spinner.setThickness(Math.round(8 * widthFactor));
@@ -758,43 +944,199 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Name TextField 1
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(707 * widthFactor),
-                Math.round(348 * heightFactor),
+                Math.round(371 * heightFactor),
                 Math.round(364 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(707 * widthFactor),
-                Math.round(397 * heightFactor),
+                Math.round(421 * heightFactor),
                 Math.round(364 * widthFactor),
                 Math.round(3 * heightFactor));
 
         if (sizeChanged) {
             nameTextField1.setFont(font);
             nameTextField1.setBounds(Math.round(712 * widthFactor),
-                    Math.round(348 * heightFactor),
+                    Math.round(371 * heightFactor),
                     Math.round(354 * widthFactor),
                     Math.round(52 * heightFactor));
+        }
+
+        {
+            String text = "Pr\u00e9nom";
+            JLabel testLabel = new JLabel(text);
+            testLabel.setFont(font);
+            Dimension dimension = GameFrame.getStringSize(testLabel, text);
+            int nameZoneX = Math.round(707 * widthFactor);
+            int nameZoneY = Math.round(331 * heightFactor); // -5 par rapport au design
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(font);
+            g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
         }
 
         // Name TextField 2
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(707 * widthFactor),
-                Math.round(430 * heightFactor),
+                Math.round(472 * heightFactor),
                 Math.round(364 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(707 * widthFactor),
-                Math.round(479 * heightFactor),
+                Math.round(521 * heightFactor),
                 Math.round(364 * widthFactor),
                 Math.round(3 * heightFactor));
 
         if (sizeChanged) {
             nameTextField2.setFont(font);
             nameTextField2.setBounds(Math.round(712 * widthFactor),
-                    Math.round(430 * heightFactor),
+                    Math.round(472 * heightFactor),
                     Math.round(354 * widthFactor),
                     Math.round(52 * heightFactor));
+        }
+
+        {
+            String text = "Nom";
+            JLabel testLabel = new JLabel(text);
+            testLabel.setFont(font);
+            Dimension dimension = GameFrame.getStringSize(testLabel, text);
+            int nameZoneX = Math.round(707 * widthFactor);
+            int nameZoneY = Math.round(432 * heightFactor); // -5 par rapport au design
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(font);
+            g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
+        }
+
+        {
+            String text = "Talents (5pts)";
+            JLabel testLabel = new JLabel(text);
+            testLabel.setFont(font);
+            Dimension dimension = GameFrame.getStringSize(testLabel, text);
+            int nameZoneX = Math.round(707 * widthFactor);
+            int nameZoneY = Math.round(648 * heightFactor); // -5 par rapport au design
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(font);
+            g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
+        }
+
+        // Talent1
+        //   Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(707 * widthFactor),
+                Math.round(697 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(710 * widthFactor),
+                Math.round(700 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        //   TextField
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(776 * widthFactor),
+                Math.round(700 * heightFactor),
+                Math.round(216 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(776 * widthFactor),
+                Math.round(749 * heightFactor),
+                Math.round(216 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        //   AbilityField
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1003 * widthFactor),
+                Math.round(700 * heightFactor),
+                Math.round(67 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1003 * widthFactor),
+                Math.round(749 * heightFactor),
+                Math.round(67 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        if (sizeChanged) {
+            talent1TextField.setBounds(Math.round(781 * widthFactor),
+                    Math.round(700 * heightFactor),
+                    Math.round(206 * widthFactor),
+                    Math.round(52 * heightFactor));
+            talent1TextField.setFont(font);
+
+            talent1LevelTextField.setBounds(Math.round(713 * widthFactor),
+                    Math.round(704 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            talent1LevelTextField.setFont(font);
+
+            talent1AbilityLabel.setBounds(Math.round(1008 * widthFactor),
+                    Math.round(700 * heightFactor),
+                    Math.round(67 * widthFactor),
+                    Math.round(52 * heightFactor));
+            talent1AbilityLabel.setFont(font);
+        }
+
+        // Talent2
+        //   Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(707 * widthFactor),
+                Math.round(769 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(710 * widthFactor),
+                Math.round(772 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        //   TextField
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(776 * widthFactor),
+                Math.round(772 * heightFactor),
+                Math.round(216 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(776 * widthFactor),
+                Math.round(821 * heightFactor),
+                Math.round(216 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        //   AbilityField
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1003 * widthFactor),
+                Math.round(772 * heightFactor),
+                Math.round(67 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1003 * widthFactor),
+                Math.round(821 * heightFactor),
+                Math.round(67 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        if (sizeChanged) {
+            talent2TextField.setBounds(Math.round(781 * widthFactor),
+                    Math.round(772 * heightFactor),
+                    Math.round(206 * widthFactor),
+                    Math.round(52 * heightFactor));
+            talent2TextField.setFont(font);
+
+            talent2LevelTextField.setBounds(Math.round(713 * widthFactor),
+                    Math.round(776 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            talent2LevelTextField.setFont(font);
+
+            talent2AbilityLabel.setBounds(Math.round(1008 * widthFactor),
+                    Math.round(772 * heightFactor),
+                    Math.round(67 * widthFactor),
+                    Math.round(52 * heightFactor));
+            talent2AbilityLabel.setFont(font);
         }
 
         // Center separator
@@ -803,6 +1145,18 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                 Math.round(133 * heightFactor),
                 Math.round(6 * widthFactor),
                 Math.round(864 * heightFactor));
+
+        {
+            String text = "Comp\u00e9tences (70pts, 13max/comp)";
+            JLabel testLabel = new JLabel(text);
+            testLabel.setFont(font);
+            Dimension dimension = GameFrame.getStringSize(testLabel, text);
+            int nameZoneX = Math.round(1160 * widthFactor);
+            int nameZoneY = Math.round(135 * heightFactor); // -5 par rapport au design
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(font);
+            g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
+        }
 
         // Constitution
         g2d.setColor(new Color(52, 8, 8));
@@ -1632,6 +1986,7 @@ class CharacterInList extends JPanel implements SwingerEventListener {
         } else if (e == resetButton) {
 
             Thread ifYes = new Thread(() -> {
+                boolean b = ((CharacterCreator) this.getParent()).actualCharacter == this;
                 Character newCharacter = new Character("Nouveau", "personnage");
                 try {
                     newCharacter.writeToFile(path);
@@ -1641,6 +1996,9 @@ class CharacterInList extends JPanel implements SwingerEventListener {
                 Client.println("Personnage réinitialisé: " + path.toFile().getAbsolutePath());
                 character = newCharacter;
                 this.repaint();
+                if (b) {
+                    ((CharacterCreator) this.getParent()).changeCharacterTo(this);
+                }
             });
 
             PopUpMessages.yesNoMessage("Attention","Voulez-vous r\u00e9initialiser le personnage \"" + character.getFullName() + "\" ?", ifYes, new Thread());
