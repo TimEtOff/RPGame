@@ -31,18 +31,40 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
 
     JTextField nameTextField1 = new JTextField();
     JTextField nameTextField2 = new JTextField();
+
     JTextField constitutionTextField = new JTextField();
     JTextField forceTextField = new JTextField();
     JTextField resistanceTextField = new JTextField();
+
     JTextField mentalTextField = new JTextField();
     JTextField intellectTextField = new JTextField();
     JTextField eloquenceTextField = new JTextField();
+
     JTextField dexteriteTextField = new JTextField();
     JTextField agiliteTextField = new JTextField();
     JTextField furtiviteTextField = new JTextField();
+
     JTextField survieTextField = new JTextField();
     JTextField perceptionTextField = new JTextField();
     JTextField savoirfaireTextField = new JTextField();
+
+    JTextField specialCategory1TextField = new JTextField();
+    JTextField specialCategory1LevelTextField = new JTextField();
+    JTextField specialCategory1Ability1TextField = new JTextField();
+    JTextField specialCategory1Ability1LevelTextField = new JTextField();
+    JTextField specialCategory1Ability2TextField = new JTextField();
+    JTextField specialCategory1Ability2LevelTextField = new JTextField();
+    JTextField specialCategory1Ability3TextField = new JTextField();
+    JTextField specialCategory1Ability3LevelTextField = new JTextField();
+
+    JTextField specialCategory2TextField = new JTextField();
+    JTextField specialCategory2LevelTextField = new JTextField();
+    JTextField specialCategory2Ability1TextField = new JTextField();
+    JTextField specialCategory2Ability1LevelTextField = new JTextField();
+    JTextField specialCategory2Ability2TextField = new JTextField();
+    JTextField specialCategory2Ability2LevelTextField = new JTextField();
+    JTextField specialCategory2Ability3TextField = new JTextField();
+    JTextField specialCategory2Ability3LevelTextField = new JTextField();
 
     ArrayList<CharacterInList> charactersList = new ArrayList<>();
 
@@ -64,7 +86,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         this.add(saveButton);
 
         Font font = CustomFonts.kollektifFont.deriveFont(31f);
-        nameTextField1.setBounds(712, 348, 354, 52);
+        nameTextField1.setBounds(712, 348, 354, 52); // +5 +0 -10 -0
         nameTextField1.setForeground(Color.WHITE);
         nameTextField1.setCaretColor(Color.WHITE);
         nameTextField1.setOpaque(false);
@@ -200,6 +222,151 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         ((AbstractDocument) savoirfaireTextField.getDocument()).setDocumentFilter(new IntFilter());
         this.add(savoirfaireTextField);
 
+        specialCategory1TextField.setBounds(1234, 640, 248, 52); // +5 +0 -10 -0
+        specialCategory1TextField.setForeground(Color.WHITE);
+        specialCategory1TextField.setCaretColor(Color.WHITE);
+        specialCategory1TextField.setOpaque(false);
+        specialCategory1TextField.setFont(font);
+        specialCategory1TextField.setBorder(null);
+        this.add(specialCategory1TextField);
+
+        specialCategory1LevelTextField.setBounds(1166, 644, 48, 48); // +6 +7 -10 -10
+        specialCategory1LevelTextField.setForeground(Color.WHITE);
+        specialCategory1LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory1LevelTextField.setOpaque(false);
+        specialCategory1LevelTextField.setFont(font);
+        specialCategory1LevelTextField.setBorder(null);
+        specialCategory1LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory1LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory1LevelTextField);
+
+        specialCategory1Ability1TextField.setBounds(1262, 712, 219, 52); // +5 +0 -10 -0
+        specialCategory1Ability1TextField.setForeground(Color.WHITE);
+        specialCategory1Ability1TextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability1TextField.setOpaque(false);
+        specialCategory1Ability1TextField.setFont(font);
+        specialCategory1Ability1TextField.setBorder(null);
+        this.add(specialCategory1Ability1TextField);
+
+        specialCategory1Ability1LevelTextField.setBounds(1195, 716, 48, 48); // +6 +7 -10 -10
+        specialCategory1Ability1LevelTextField.setForeground(Color.WHITE);
+        specialCategory1Ability1LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability1LevelTextField.setOpaque(false);
+        specialCategory1Ability1LevelTextField.setFont(font);
+        specialCategory1Ability1LevelTextField.setBorder(null);
+        specialCategory1Ability1LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory1Ability1LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory1Ability1LevelTextField);
+
+        specialCategory1Ability2TextField.setBounds(1262, 784, 219, 52); // +5 +0 -10 -0
+        specialCategory1Ability2TextField.setForeground(Color.WHITE);
+        specialCategory1Ability2TextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability2TextField.setOpaque(false);
+        specialCategory1Ability2TextField.setFont(font);
+        specialCategory1Ability2TextField.setBorder(null);
+        this.add(specialCategory1Ability2TextField);
+
+        specialCategory1Ability2LevelTextField.setBounds(1195, 788, 48, 48); // +6 +7 -10 -10
+        specialCategory1Ability2LevelTextField.setForeground(Color.WHITE);
+        specialCategory1Ability2LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability2LevelTextField.setOpaque(false);
+        specialCategory1Ability2LevelTextField.setFont(font);
+        specialCategory1Ability2LevelTextField.setBorder(null);
+        specialCategory1Ability2LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory1Ability2LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory1Ability2LevelTextField);
+
+        specialCategory1Ability3TextField.setBounds(1262, 856, 219, 52); // +5 +0 -10 -0
+        specialCategory1Ability3TextField.setForeground(Color.WHITE);
+        specialCategory1Ability3TextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability3TextField.setOpaque(false);
+        specialCategory1Ability3TextField.setFont(font);
+        specialCategory1Ability3TextField.setBorder(null);
+        this.add(specialCategory1Ability3TextField);
+
+        specialCategory1Ability3LevelTextField.setBounds(1195, 860, 48, 48); // +6 +7 -10 -10
+        specialCategory1Ability3LevelTextField.setForeground(Color.WHITE);
+        specialCategory1Ability3LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory1Ability3LevelTextField.setOpaque(false);
+        specialCategory1Ability3LevelTextField.setFont(font);
+        specialCategory1Ability3LevelTextField.setBorder(null);
+        specialCategory1Ability3LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory1Ability3LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory1Ability3LevelTextField);
+
+        specialCategory2TextField.setBounds(1589, 640, 248, 52); // +5 +0 -10 -0
+        specialCategory2TextField.setForeground(Color.WHITE);
+        specialCategory2TextField.setCaretColor(Color.WHITE);
+        specialCategory2TextField.setOpaque(false);
+        specialCategory2TextField.setFont(font);
+        specialCategory2TextField.setBorder(null);
+        this.add(specialCategory2TextField);
+
+        specialCategory2LevelTextField.setBounds(1521, 644, 48, 48); // +6 +7 -10 -10
+        specialCategory2LevelTextField.setForeground(Color.WHITE);
+        specialCategory2LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory2LevelTextField.setOpaque(false);
+        specialCategory2LevelTextField.setFont(font);
+        specialCategory2LevelTextField.setBorder(null);
+        specialCategory2LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory2LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory2LevelTextField);
+
+        specialCategory2Ability1TextField.setBounds(1617, 712, 219, 52); // +5 +0 -10 -0
+        specialCategory2Ability1TextField.setForeground(Color.WHITE);
+        specialCategory2Ability1TextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability1TextField.setOpaque(false);
+        specialCategory2Ability1TextField.setFont(font);
+        specialCategory2Ability1TextField.setBorder(null);
+        this.add(specialCategory2Ability1TextField);
+
+        specialCategory2Ability1LevelTextField.setBounds(1550, 716, 48, 48); // +6 +7 -10 -10
+        specialCategory2Ability1LevelTextField.setForeground(Color.WHITE);
+        specialCategory2Ability1LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability1LevelTextField.setOpaque(false);
+        specialCategory2Ability1LevelTextField.setFont(font);
+        specialCategory2Ability1LevelTextField.setBorder(null);
+        specialCategory2Ability1LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory2Ability1LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory2Ability1LevelTextField);
+
+        specialCategory2Ability2TextField.setBounds(1617, 784, 219, 52); // +5 +0 -10 -0
+        specialCategory2Ability2TextField.setForeground(Color.WHITE);
+        specialCategory2Ability2TextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability2TextField.setOpaque(false);
+        specialCategory2Ability2TextField.setFont(font);
+        specialCategory2Ability2TextField.setBorder(null);
+        this.add(specialCategory2Ability2TextField);
+
+        specialCategory2Ability2LevelTextField.setBounds(1550, 788, 48, 48); // +6 +7 -10 -10
+        specialCategory2Ability2LevelTextField.setForeground(Color.WHITE);
+        specialCategory2Ability2LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability2LevelTextField.setOpaque(false);
+        specialCategory2Ability2LevelTextField.setFont(font);
+        specialCategory2Ability2LevelTextField.setBorder(null);
+        specialCategory2Ability2LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory2Ability2LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory2Ability2LevelTextField);
+
+        specialCategory2Ability3TextField.setBounds(1617, 856, 219, 52); // +5 +0 -10 -0
+        specialCategory2Ability3TextField.setForeground(Color.WHITE);
+        specialCategory2Ability3TextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability3TextField.setOpaque(false);
+        specialCategory2Ability3TextField.setFont(font);
+        specialCategory2Ability3TextField.setBorder(null);
+        this.add(specialCategory2Ability3TextField);
+
+        specialCategory2Ability3LevelTextField.setBounds(1550, 860, 48, 48); // +6 +7 -10 -10
+        specialCategory2Ability3LevelTextField.setForeground(Color.WHITE);
+        specialCategory2Ability3LevelTextField.setCaretColor(Color.WHITE);
+        specialCategory2Ability3LevelTextField.setOpaque(false);
+        specialCategory2Ability3LevelTextField.setFont(font);
+        specialCategory2Ability3LevelTextField.setBorder(null);
+        specialCategory2Ability3LevelTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        ((AbstractDocument) specialCategory2Ability3LevelTextField.getDocument()).setDocumentFilter(new IntFilter());
+        this.add(specialCategory2Ability3LevelTextField);
+
+
         List<Path> pathList = Explorer.dir(GameFrame.RP_CHARACTERSFOLDER.toPath()).files().match(".*\\.character").get();
         if (pathList.size() < 8) {
             int i = pathList.size();
@@ -285,6 +452,24 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         survieTextField.setText(actualCharacter.character.survieAbilities.getCategoryLevel() + "");
         perceptionTextField.setText(actualCharacter.character.survieAbilities.get(0).getLevel() + "");
         savoirfaireTextField.setText(actualCharacter.character.survieAbilities.get(1).getLevel() + "");
+
+        specialCategory1TextField.setText(actualCharacter.character.specialAbilities1.getName());
+        specialCategory1LevelTextField.setText(actualCharacter.character.specialAbilities1.getCategoryLevel() + "");
+        specialCategory1Ability1TextField.setText(actualCharacter.character.specialAbilities1.get(0).getName());
+        specialCategory1Ability1LevelTextField.setText(actualCharacter.character.specialAbilities1.get(0).getLevel() + "");
+        specialCategory1Ability2TextField.setText(actualCharacter.character.specialAbilities1.get(1).getName());
+        specialCategory1Ability2LevelTextField.setText(actualCharacter.character.specialAbilities1.get(1).getLevel() + "");
+        specialCategory1Ability3TextField.setText(actualCharacter.character.specialAbilities1.get(2).getName());
+        specialCategory1Ability3LevelTextField.setText(actualCharacter.character.specialAbilities1.get(2).getLevel() + "");
+
+        specialCategory2TextField.setText(actualCharacter.character.specialAbilities2.getName());
+        specialCategory2LevelTextField.setText(actualCharacter.character.specialAbilities2.getCategoryLevel() + "");
+        specialCategory2Ability1TextField.setText(actualCharacter.character.specialAbilities2.get(0).getName());
+        specialCategory2Ability1LevelTextField.setText(actualCharacter.character.specialAbilities2.get(0).getLevel() + "");
+        specialCategory2Ability2TextField.setText(actualCharacter.character.specialAbilities2.get(1).getName());
+        specialCategory2Ability2LevelTextField.setText(actualCharacter.character.specialAbilities2.get(1).getLevel() + "");
+        specialCategory2Ability3TextField.setText(actualCharacter.character.specialAbilities2.get(2).getName());
+        specialCategory2Ability3LevelTextField.setText(actualCharacter.character.specialAbilities2.get(2).getLevel() + "");
     }
 
     @Override
@@ -374,6 +559,78 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
                             Integer.parseInt(savoirfaireTextField.getText())
                     )
             );
+            actualCharacter.character.specialAbilities1.setName(specialCategory1TextField.getText());
+            if (!specialCategory1TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities1.setCategoryLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities1.getCategoryLevel(),
+                                Integer.parseInt(specialCategory1LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities1.get(0).setName(specialCategory1Ability1TextField.getText());
+            if (!specialCategory1Ability1TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities1.get(0).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities1.get(0).getLevel(),
+                                Integer.parseInt(specialCategory1Ability1LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities1.get(1).setName(specialCategory1Ability2TextField.getText());
+            if (!specialCategory1Ability2TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities1.get(1).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities1.get(1).getLevel(),
+                                Integer.parseInt(specialCategory1Ability2LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities1.get(2).setName(specialCategory1Ability3TextField.getText());
+            if (!specialCategory1Ability3TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities1.get(2).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities1.get(2).getLevel(),
+                                Integer.parseInt(specialCategory1Ability3LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities2.setName(specialCategory2TextField.getText());
+            if (!specialCategory2TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities2.setCategoryLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities2.getCategoryLevel(),
+                                Integer.parseInt(specialCategory2LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities2.get(0).setName(specialCategory2Ability1TextField.getText());
+            if (!specialCategory2Ability1TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities2.get(0).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities2.get(0).getLevel(),
+                                Integer.parseInt(specialCategory2Ability1LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities2.get(1).setName(specialCategory2Ability2TextField.getText());
+            if (!specialCategory2Ability2TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities2.get(1).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities2.get(1).getLevel(),
+                                Integer.parseInt(specialCategory2Ability2LevelTextField.getText())
+                        )
+                );
+            }
+            actualCharacter.character.specialAbilities2.get(2).setName(specialCategory2Ability3TextField.getText());
+            if (!specialCategory2Ability3TextField.getText().replaceAll(" ", "").equals("")) {
+                actualCharacter.character.specialAbilities2.get(2).setLevel(
+                        actualCharacter.character.verifyAbilityChange(
+                                actualCharacter.character.specialAbilities2.get(2).getLevel(),
+                                Integer.parseInt(specialCategory2Ability3LevelTextField.getText())
+                        )
+                );
+            }
 
             try {
                 actualCharacter.character.writeToFile(actualCharacter.path);
@@ -568,7 +825,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             constitutionTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Constitution";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -601,7 +858,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             forceTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Force";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -634,7 +891,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             resistanceTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "R\u00e9sistance";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -667,7 +924,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             mentalTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Mental";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -700,7 +957,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             intellectTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Intellect";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -733,7 +990,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             eloquenceTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Eloquence";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -766,7 +1023,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             dexteriteTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Dext\u00e9rit\u00e9";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -799,7 +1056,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             agiliteTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Agilit\u00e9";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -832,7 +1089,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             furtiviteTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Furtivit\u00e9";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -865,7 +1122,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             survieTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Survie";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -898,7 +1155,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             perceptionTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Perception";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -931,7 +1188,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             savoirfaireTextField.setFont(font);
         }
 
-        if (true) {
+        {
             String text = "Savoir-faire";
             JLabel testLabel = new JLabel(text);
             testLabel.setFont(font);
@@ -942,6 +1199,327 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
         }
+
+        // Special Category 1
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1160 * widthFactor),
+                Math.round(637 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1163 * widthFactor),
+                Math.round(640 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory1LevelTextField.setBounds(Math.round(1166 * widthFactor),
+                    Math.round(644 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory1LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory1TextField.setFont(font);
+            specialCategory1TextField.setBounds(Math.round(1234 * widthFactor),
+                    Math.round(640 * heightFactor),
+                    Math.round(248 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1229 * widthFactor),
+                Math.round(640 * heightFactor),
+                Math.round(258 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1229 * widthFactor),
+                Math.round(689 * heightFactor),
+                Math.round(258 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 1 - ability 1
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1189 * widthFactor),
+                Math.round(709 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1192 * widthFactor),
+                Math.round(712 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory1Ability1LevelTextField.setBounds(Math.round(1195 * widthFactor),
+                    Math.round(716 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory1Ability1LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory1Ability1TextField.setFont(font);
+            specialCategory1Ability1TextField.setBounds(Math.round(1262 * widthFactor),
+                    Math.round(712 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(712 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(761 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 1 - ability 2
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1189 * widthFactor),
+                Math.round(781 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1192 * widthFactor),
+                Math.round(784 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory1Ability2LevelTextField.setBounds(Math.round(1195 * widthFactor),
+                    Math.round(788 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory1Ability2LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory1Ability2TextField.setFont(font);
+            specialCategory1Ability2TextField.setBounds(Math.round(1262 * widthFactor),
+                    Math.round(784 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(784 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(833 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 1 - ability 3
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1189 * widthFactor),
+                Math.round(853 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1192 * widthFactor),
+                Math.round(856 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory1Ability3LevelTextField.setBounds(Math.round(1195 * widthFactor),
+                    Math.round(860 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory1Ability3LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory1Ability3TextField.setFont(font);
+            specialCategory1Ability3TextField.setBounds(Math.round(1262 * widthFactor),
+                    Math.round(856 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(856 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1257 * widthFactor),
+                Math.round(905 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 2
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1515 * widthFactor),
+                Math.round(637 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1518 * widthFactor),
+                Math.round(640 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory2LevelTextField.setBounds(Math.round(1521 * widthFactor),
+                    Math.round(644 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory2LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory2TextField.setFont(font);
+            specialCategory2TextField.setBounds(Math.round(1589 * widthFactor),
+                    Math.round(640 * heightFactor),
+                    Math.round(248 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1584 * widthFactor),
+                Math.round(640 * heightFactor),
+                Math.round(258 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1584 * widthFactor),
+                Math.round(689 * heightFactor),
+                Math.round(258 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 2 - ability 1
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1544 * widthFactor),
+                Math.round(709 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1547 * widthFactor),
+                Math.round(712 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory2Ability1LevelTextField.setBounds(Math.round(1550 * widthFactor),
+                    Math.round(716 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory2Ability1LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory2Ability1TextField.setFont(font);
+            specialCategory2Ability1TextField.setBounds(Math.round(1617 * widthFactor),
+                    Math.round(712 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(712 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(761 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 2 - ability 2
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1544 * widthFactor),
+                Math.round(781 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1547 * widthFactor),
+                Math.round(784 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory2Ability2LevelTextField.setBounds(Math.round(1550 * widthFactor),
+                    Math.round(788 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory2Ability2LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory2Ability2TextField.setFont(font);
+            specialCategory2Ability2TextField.setBounds(Math.round(1617 * widthFactor),
+                    Math.round(784 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(784 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(833 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
+        // Special Category 2 - ability 3
+        //   Level Oval
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillOval(Math.round(1544 * widthFactor),
+                Math.round(853 * heightFactor),
+                Math.round(58 * widthFactor),
+                Math.round(58 * heightFactor));
+
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillOval(Math.round(1547 * widthFactor),
+                Math.round(856 * heightFactor),
+                Math.round(52 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        if (sizeChanged) {
+            specialCategory2Ability3LevelTextField.setBounds(Math.round(1550 * widthFactor),
+                    Math.round(860 * heightFactor),
+                    Math.round(48 * widthFactor),
+                    Math.round(48 * heightFactor));
+            specialCategory2Ability3LevelTextField.setFont(font);
+
+            //   TextField
+            specialCategory2Ability3TextField.setFont(font);
+            specialCategory2Ability3TextField.setBounds(Math.round(1617 * widthFactor),
+                    Math.round(856 * heightFactor),
+                    Math.round(219 * widthFactor),
+                    Math.round(52 * heightFactor));
+        }
+        g2d.setColor(new Color(80, 10, 10));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(856 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(52 * heightFactor));
+
+        g2d.setColor(new Color(52, 8, 8));
+        g2d.fillRect(Math.round(1612 * widthFactor),
+                Math.round(905 * heightFactor),
+                Math.round(229 * widthFactor),
+                Math.round(3 * heightFactor));
+
 
         sizeChanged = true;
     }
