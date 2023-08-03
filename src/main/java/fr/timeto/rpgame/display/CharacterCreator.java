@@ -807,19 +807,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Constitution
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1160 * widthFactor),
-                Math.round(143 * heightFactor),
+                Math.round(203 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1163 * widthFactor),
-                Math.round(146 * heightFactor),
+                Math.round(206 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             constitutionTextField.setBounds(Math.round(1166 * widthFactor),
-                    Math.round(150 * heightFactor),
+                    Math.round(210 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             constitutionTextField.setFont(font);
@@ -831,7 +831,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1228 * widthFactor);
-            int nameZoneY = Math.round(152 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(212 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -840,19 +840,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Force
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(215 * heightFactor),
+                Math.round(275 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(218 * heightFactor),
+                Math.round(278 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             forceTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(222 * heightFactor),
+                    Math.round(282 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             forceTextField.setFont(font);
@@ -864,7 +864,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1257 * widthFactor);
-            int nameZoneY = Math.round(224 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(284 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -873,19 +873,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Résistance
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(287 * heightFactor),
+                Math.round(347 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(290 * heightFactor),
+                Math.round(350 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             resistanceTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(294 * heightFactor),
+                    Math.round(354 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             resistanceTextField.setFont(font);
@@ -897,7 +897,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1257 * widthFactor);
-            int nameZoneY = Math.round(296 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(356 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -906,19 +906,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Mental
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1515 * widthFactor),
-                Math.round(143 * heightFactor),
+                Math.round(203 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1518 * widthFactor),
-                Math.round(146 * heightFactor),
+                Math.round(206 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             mentalTextField.setBounds(Math.round(1521 * widthFactor),
-                    Math.round(150 * heightFactor),
+                    Math.round(210 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             mentalTextField.setFont(font);
@@ -930,7 +930,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1583 * widthFactor);
-            int nameZoneY = Math.round(152 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(212 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -939,19 +939,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Intellect
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(215 * heightFactor),
+                Math.round(275 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(218 * heightFactor),
+                Math.round(278 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             intellectTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(222 * heightFactor),
+                    Math.round(282 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             intellectTextField.setFont(font);
@@ -963,7 +963,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1612 * widthFactor);
-            int nameZoneY = Math.round(224 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(284 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -972,19 +972,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Eloquence
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(287 * heightFactor),
+                Math.round(347 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(290 * heightFactor),
+                Math.round(350 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             eloquenceTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(294 * heightFactor),
+                    Math.round(354 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             eloquenceTextField.setFont(font);
@@ -996,7 +996,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1612 * widthFactor);
-            int nameZoneY = Math.round(296 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(356 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1005,19 +1005,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Dextérité
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1160 * widthFactor),
-                Math.round(390 * heightFactor),
+                Math.round(450 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1163 * widthFactor),
-                Math.round(393 * heightFactor),
+                Math.round(453 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             dexteriteTextField.setBounds(Math.round(1166 * widthFactor),
-                    Math.round(397 * heightFactor),
+                    Math.round(457 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             dexteriteTextField.setFont(font);
@@ -1029,7 +1029,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1228 * widthFactor);
-            int nameZoneY = Math.round(399 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(459 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1038,19 +1038,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Agilité
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(462 * heightFactor),
+                Math.round(522 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(465 * heightFactor),
+                Math.round(525 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             agiliteTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(469 * heightFactor),
+                    Math.round(529 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             agiliteTextField.setFont(font);
@@ -1062,7 +1062,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1257 * widthFactor);
-            int nameZoneY = Math.round(471 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(531 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1071,19 +1071,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Furtivité
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(534 * heightFactor),
+                Math.round(594 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(537 * heightFactor),
+                Math.round(597 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             furtiviteTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(541 * heightFactor),
+                    Math.round(601 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             furtiviteTextField.setFont(font);
@@ -1095,7 +1095,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1257 * widthFactor);
-            int nameZoneY = Math.round(543 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(603 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1104,19 +1104,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Survie
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1515 * widthFactor),
-                Math.round(390 * heightFactor),
+                Math.round(450 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1518 * widthFactor),
-                Math.round(393 * heightFactor),
+                Math.round(453 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             survieTextField.setBounds(Math.round(1521 * widthFactor),
-                    Math.round(397 * heightFactor),
+                    Math.round(457 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             survieTextField.setFont(font);
@@ -1128,7 +1128,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1583 * widthFactor);
-            int nameZoneY = Math.round(399 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(459 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1137,19 +1137,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Perception
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(462 * heightFactor),
+                Math.round(522 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(465 * heightFactor),
+                Math.round(525 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             perceptionTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(469 * heightFactor),
+                    Math.round(529 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             perceptionTextField.setFont(font);
@@ -1161,7 +1161,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1612 * widthFactor);
-            int nameZoneY = Math.round(476 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(536 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1170,19 +1170,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         // Savoir-faire
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(534 * heightFactor),
+                Math.round(594 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(537 * heightFactor),
+                Math.round(597 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             savoirfaireTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(541 * heightFactor),
+                    Math.round(601 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             savoirfaireTextField.setFont(font);
@@ -1194,7 +1194,7 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             testLabel.setFont(font);
             Dimension dimension = GameFrame.getStringSize(testLabel, text);
             int nameZoneX = Math.round(1612 * widthFactor);
-            int nameZoneY = Math.round(543 * heightFactor); // -5 par rapport au design
+            int nameZoneY = Math.round(603 * heightFactor); // -5 par rapport au design
             g2d.setColor(Color.WHITE);
             g2d.setFont(font);
             g2d.drawString(text, nameZoneX, Math.round(nameZoneY + dimension.getHeight()));
@@ -1204,19 +1204,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1160 * widthFactor),
-                Math.round(637 * heightFactor),
+                Math.round(697 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1163 * widthFactor),
-                Math.round(640 * heightFactor),
+                Math.round(700 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory1LevelTextField.setBounds(Math.round(1166 * widthFactor),
-                    Math.round(644 * heightFactor),
+                    Math.round(704 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory1LevelTextField.setFont(font);
@@ -1224,19 +1224,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory1TextField.setFont(font);
             specialCategory1TextField.setBounds(Math.round(1234 * widthFactor),
-                    Math.round(640 * heightFactor),
+                    Math.round(700 * heightFactor),
                     Math.round(248 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1229 * widthFactor),
-                Math.round(640 * heightFactor),
+                Math.round(700 * heightFactor),
                 Math.round(258 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1229 * widthFactor),
-                Math.round(689 * heightFactor),
+                Math.round(750 * heightFactor),
                 Math.round(258 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1244,19 +1244,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(709 * heightFactor),
+                Math.round(769 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(712 * heightFactor),
+                Math.round(772 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory1Ability1LevelTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(716 * heightFactor),
+                    Math.round(776 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory1Ability1LevelTextField.setFont(font);
@@ -1264,19 +1264,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory1Ability1TextField.setFont(font);
             specialCategory1Ability1TextField.setBounds(Math.round(1262 * widthFactor),
-                    Math.round(712 * heightFactor),
+                    Math.round(772 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(712 * heightFactor),
+                Math.round(772 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(761 * heightFactor),
+                Math.round(821 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1284,19 +1284,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(781 * heightFactor),
+                Math.round(841 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(784 * heightFactor),
+                Math.round(844 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory1Ability2LevelTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(788 * heightFactor),
+                    Math.round(848 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory1Ability2LevelTextField.setFont(font);
@@ -1304,19 +1304,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory1Ability2TextField.setFont(font);
             specialCategory1Ability2TextField.setBounds(Math.round(1262 * widthFactor),
-                    Math.round(784 * heightFactor),
+                    Math.round(844 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(784 * heightFactor),
+                Math.round(844 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(833 * heightFactor),
+                Math.round(894 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1324,19 +1324,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1189 * widthFactor),
-                Math.round(853 * heightFactor),
+                Math.round(913 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1192 * widthFactor),
-                Math.round(856 * heightFactor),
+                Math.round(916 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory1Ability3LevelTextField.setBounds(Math.round(1195 * widthFactor),
-                    Math.round(860 * heightFactor),
+                    Math.round(920 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory1Ability3LevelTextField.setFont(font);
@@ -1344,19 +1344,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory1Ability3TextField.setFont(font);
             specialCategory1Ability3TextField.setBounds(Math.round(1262 * widthFactor),
-                    Math.round(856 * heightFactor),
+                    Math.round(916 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(856 * heightFactor),
+                Math.round(916 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1257 * widthFactor),
-                Math.round(905 * heightFactor),
+                Math.round(966 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1364,19 +1364,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1515 * widthFactor),
-                Math.round(637 * heightFactor),
+                Math.round(697 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1518 * widthFactor),
-                Math.round(640 * heightFactor),
+                Math.round(700 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory2LevelTextField.setBounds(Math.round(1521 * widthFactor),
-                    Math.round(644 * heightFactor),
+                    Math.round(704 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory2LevelTextField.setFont(font);
@@ -1384,19 +1384,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory2TextField.setFont(font);
             specialCategory2TextField.setBounds(Math.round(1589 * widthFactor),
-                    Math.round(640 * heightFactor),
+                    Math.round(700 * heightFactor),
                     Math.round(248 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1584 * widthFactor),
-                Math.round(640 * heightFactor),
+                Math.round(700 * heightFactor),
                 Math.round(258 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1584 * widthFactor),
-                Math.round(689 * heightFactor),
+                Math.round(749 * heightFactor),
                 Math.round(258 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1404,19 +1404,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(709 * heightFactor),
+                Math.round(769 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(712 * heightFactor),
+                Math.round(772 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory2Ability1LevelTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(716 * heightFactor),
+                    Math.round(776 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory2Ability1LevelTextField.setFont(font);
@@ -1424,19 +1424,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory2Ability1TextField.setFont(font);
             specialCategory2Ability1TextField.setBounds(Math.round(1617 * widthFactor),
-                    Math.round(712 * heightFactor),
+                    Math.round(772 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(712 * heightFactor),
+                Math.round(772 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(761 * heightFactor),
+                Math.round(821 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1444,19 +1444,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(781 * heightFactor),
+                Math.round(841 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(784 * heightFactor),
+                Math.round(844 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory2Ability2LevelTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(788 * heightFactor),
+                    Math.round(848 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory2Ability2LevelTextField.setFont(font);
@@ -1464,19 +1464,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory2Ability2TextField.setFont(font);
             specialCategory2Ability2TextField.setBounds(Math.round(1617 * widthFactor),
-                    Math.round(784 * heightFactor),
+                    Math.round(844 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(784 * heightFactor),
+                Math.round(844 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(833 * heightFactor),
+                Math.round(894 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1484,19 +1484,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
         //   Level Oval
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillOval(Math.round(1544 * widthFactor),
-                Math.round(853 * heightFactor),
+                Math.round(913 * heightFactor),
                 Math.round(58 * widthFactor),
                 Math.round(58 * heightFactor));
 
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillOval(Math.round(1547 * widthFactor),
-                Math.round(856 * heightFactor),
+                Math.round(916 * heightFactor),
                 Math.round(52 * widthFactor),
                 Math.round(52 * heightFactor));
 
         if (sizeChanged) {
             specialCategory2Ability3LevelTextField.setBounds(Math.round(1550 * widthFactor),
-                    Math.round(860 * heightFactor),
+                    Math.round(920 * heightFactor),
                     Math.round(48 * widthFactor),
                     Math.round(48 * heightFactor));
             specialCategory2Ability3LevelTextField.setFont(font);
@@ -1504,19 +1504,19 @@ public class CharacterCreator extends JPanel implements SwingerEventListener {
             //   TextField
             specialCategory2Ability3TextField.setFont(font);
             specialCategory2Ability3TextField.setBounds(Math.round(1617 * widthFactor),
-                    Math.round(856 * heightFactor),
+                    Math.round(916 * heightFactor),
                     Math.round(219 * widthFactor),
                     Math.round(52 * heightFactor));
         }
         g2d.setColor(new Color(80, 10, 10));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(856 * heightFactor),
+                Math.round(916 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(52 * heightFactor));
 
         g2d.setColor(new Color(52, 8, 8));
         g2d.fillRect(Math.round(1612 * widthFactor),
-                Math.round(905 * heightFactor),
+                Math.round(966 * heightFactor),
                 Math.round(229 * widthFactor),
                 Math.round(3 * heightFactor));
 
@@ -1551,7 +1551,7 @@ class CharacterInList extends JPanel implements SwingerEventListener {
         this.add(resetButton);
     }
 
-    int lastWidth = 1920;
+    int lastWidth = 1920; // 143 -> 203
     int lastHeight = 1080;
     boolean sizeChanged = true;
 
