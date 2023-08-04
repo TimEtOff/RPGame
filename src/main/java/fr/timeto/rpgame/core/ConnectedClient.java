@@ -24,6 +24,7 @@ public class ConnectedClient implements Serializable {
     private String id;
     private boolean idSet = false;
     private boolean isGM = false;
+    private boolean ready = false;
     private Character selectedChar;
 
     @Override
@@ -33,6 +34,7 @@ public class ConnectedClient implements Serializable {
                 id + "," +
                 idSet + "," +
                 isGM + "," +
+                ready + "," +
                 selectedChar.toString() +
 
                 "]";
@@ -47,14 +49,15 @@ public class ConnectedClient implements Serializable {
                     elements[0],
                     Boolean.parseBoolean(elements[1]),
                     Boolean.parseBoolean(elements[2]),
-                    Character.getFromString(elements[3])
+                    Boolean.parseBoolean(elements[3]),
+                    Character.getFromString(elements[4])
             );
         }
 
         return null;
     }
 
-    private ConnectedClient(String id, boolean idSet, boolean isGM, Character selectedChar) {
+    private ConnectedClient(String id, boolean idSet, boolean isGM, boolean ready, Character selectedChar) {
         this.id = id;
         this.idSet = idSet;
         setGMButton.addEventListener(e -> {
@@ -65,6 +68,7 @@ public class ConnectedClient implements Serializable {
             }
         });
         this.isGM = isGM;
+        this.ready = ready;
         this.selectedChar = selectedChar;
         this.socket = null;
     }
@@ -124,6 +128,14 @@ public class ConnectedClient implements Serializable {
 
     public Character getCharacter() {
         return selectedChar;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
+    public boolean isReady() {
+        return ready;
     }
 
     public void initSetGMButton() {

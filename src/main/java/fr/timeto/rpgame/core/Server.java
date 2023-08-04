@@ -1,6 +1,7 @@
 package fr.timeto.rpgame.core;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.timeto.rpgame.character.Character;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -28,6 +29,8 @@ public class Server {
         DISCONNECTING("[Disconnecting]", 4),
         ASK_FOR_CONNECTED_CLIENTS("[AskConnectedClients]", 5),
         SET_GM("[NewGM=", 6),
+        SENDING_CHARACTER("[SendingCharacter]", 7),
+        READY("[Ready=", 8),
 
         TEXT("", 0);
 
@@ -89,10 +92,8 @@ public class Server {
     protected static void newClient(Socket socket) {
         Thread t = new Thread(() -> {
             BufferedReader readerChannel = null;
-            BufferedWriter writerChannel = null;
             try {
                 readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -151,6 +152,19 @@ public class Server {
                         } else {
                             printlnError("GM didn't change: user wasn't GM himself before order");
                         }
+                    } else if (info == FROM_CLIENT.SENDING_CHARACTER.i) {
+                        String[] split = line.split(Pattern.quote(FROM_CLIENT.SENDING_CHARACTER.str));
+                        connectedClient.setCharacter(Character.getFromString(split[1]));
+                        sendConnectedClientsToAll();
+                    } else if (info == FROM_CLIENT.READY.i) {
+                        String[] split = line.split(Pattern.quote(FROM_CLIENT.READY.str));
+                        connectedClient.setReady(Boolean.parseBoolean(Client.removeLastChar(split[1])));
+                        if (connectedClient.isReady()) {
+                            println(connectedClient.getId() + " is ready");
+                        } else {
+                            println(connectedClient.getId() + " is not ready");
+                        }
+                        sendConnectedClientsToAll();
                     }
                 }
                 throw new SocketException("Disconnected ?");
@@ -202,7 +216,6 @@ public class Server {
             newStr = "[" + dtf.format(now) + "] [Server] " + str;
         }
         Socket socket = client.socket;
-        BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         try {
@@ -229,7 +242,6 @@ public class Server {
             int i = 0;
             while (i != connectedClients.size()) {
                 Socket socket = connectedClients.get(i).socket;
-                BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 try
                 {
@@ -265,7 +277,6 @@ public class Server {
             oos.flush(); */
 
             Socket socket = client.socket;
-            BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             try {
                 writerChannel.write(ConnectedClient.connectedClientsToString(connectedClients) + "\n");
@@ -296,7 +307,6 @@ public class Server {
                     oos.flush(); */
 
                     Socket socket = client.socket;
-                    BufferedReader readerChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     BufferedWriter writerChannel = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                     try {
                         String line = ConnectedClient.connectedClientsToString(connectedClients);

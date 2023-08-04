@@ -12,6 +12,8 @@ public class Character implements Serializable {
     // TODO Doit avoir un max de 75 point de compétences -- 70 coompétences + 5 talents
     protected String name;
     protected String lastname;
+    protected int life = 4;
+    protected int energy = 4;
     public AbilityCategory consitutionAbilities = new AbilityCategory(false, "Constitution", 0, new Ability("Force", 0), new Ability("R\u00e9sistance", 0));
     public AbilityCategory mentalAbilities = new AbilityCategory(false, "Mental", 0, new Ability("Intellect", 0), new Ability("Eloquence", 0));
     public AbilityCategory dexteriteAbilities = new AbilityCategory(false, "Dext\u00e9rit\u00e9", 0, new Ability("Agilit\u00e9", 0), new Ability("Furtivit\u00e9", 0));
@@ -27,6 +29,8 @@ public class Character implements Serializable {
 
                 name + "," +
                 lastname + "," +
+                life + "," +
+                energy + "," +
                 consitutionAbilities.toString() + "," +
                 mentalAbilities.toString() + "," +
                 dexteriteAbilities.toString() + "," +
@@ -47,14 +51,16 @@ public class Character implements Serializable {
             return new Character(
                     elements[0],
                     elements[1],
-                    AbilityCategory.getFromString(elements[2]),
-                    AbilityCategory.getFromString(elements[3]),
+                    Integer.parseInt(elements[2]),
+                    Integer.parseInt(elements[3]),
                     AbilityCategory.getFromString(elements[4]),
                     AbilityCategory.getFromString(elements[5]),
                     AbilityCategory.getFromString(elements[6]),
                     AbilityCategory.getFromString(elements[7]),
-                    Talent.getFromString(elements[8]),
-                    Talent.getFromString(elements[9])
+                    AbilityCategory.getFromString(elements[8]),
+                    AbilityCategory.getFromString(elements[9]),
+                    Talent.getFromString(elements[10]),
+                    Talent.getFromString(elements[11])
             );
         }
 
@@ -67,6 +73,7 @@ public class Character implements Serializable {
     }
 
     private Character(String name, String lastname,
+                      int life, int energy,
                       AbilityCategory consitutionAbilities,
                       AbilityCategory mentalAbilities,
                       AbilityCategory dexteriteAbilities,
