@@ -34,18 +34,18 @@ public class Items implements Serializable {
             if (character == null) {
                 throw new NullPointerException("Character is null, cannot restore health");
             } else if (character.health < 4) {
-              character.health += 1;
-              this.number -= 1;
+                character.health += specialStat;
+                this.number -= 1;
             }
         } else if (item.type == Item.TYPES.ENERGY) {
             if (character == null) {
                 throw new NullPointerException("Character is null, cannot restore energy");
             } else if (character.energy < 4) {
-                character.energy += 1;
+                character.energy += specialStat;
                 this.number -= 1;
             }
         } else if (item.type == Item.TYPES.NULL) {
-            this.number -=1;
+            this.number -= 1;
         }
 
         if (this.number <= 0 && this.linkedInventory != null) {
