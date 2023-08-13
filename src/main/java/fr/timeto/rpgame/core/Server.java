@@ -2,6 +2,7 @@ package fr.timeto.rpgame.core;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.rpgame.character.Character;
+import fr.timeto.rpgame.character.Inventory;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -53,6 +54,7 @@ public class Server {
     protected static Saver infosSaver;
 
     protected static ArrayList<ConnectedClient> connectedClients = new ArrayList<>();
+    private static final Inventory commonInventory = new Inventory();
     private static JDA bot;
 
     public static void main(String[] args) throws Exception {
@@ -67,11 +69,11 @@ public class Server {
         SERVER_INFOSFILE.createNewFile();
         infosSaver = new Saver(SERVER_INFOSFILE.toPath());
 
-        bot = JDABuilder.createDefault(SecretInfos.BOT_TOKEN)
-                .setActivity(Activity.playing("Tim's RPGame"))
+    /*    bot = JDABuilder.createDefault(SecretInfos.BOT_TOKEN)
+                .setActivity(Activity.playing("Tim's RPGame")) FIXME bot désac car token pas dispo -- VOIR PRINT(S) SPECIAUX AU BAS DE LA CLASS
                 .build();
 
-        bot.awaitReady();
+        bot.awaitReady(); */
 
         ServerSocket listener = new ServerSocket(SecretInfos.SERVER_PORT);
         printlnError("Server is now online");
@@ -359,7 +361,7 @@ public class Server {
     
     public static void blankPrintln(String str) {
         System.out.println(str);
-        try {
+    /*    try {
             channel = (MessageChannel) bot.getGuildById(1121118638779412654L).getGuildChannelById(1121118813463785484L);
             if (lastMessage == null) {
                 str = "```diff\n  " + str + "\n```";
@@ -368,7 +370,7 @@ public class Server {
                 String newStr = Client.removeLastChar(Client.removeLastChar(Client.removeLastChar(lastMessage.getContentRaw())));
                 newStr = newStr + "  " + str + "\n```";
                 try {
-                    lastMessage = lastMessage.editMessage(newStr).complete();
+                    lastMessage = lastMessage.editMessage(newStr).complete(); FIXME bot pas dispo tempo
                 } catch (IllegalArgumentException e) {
                     str = "```diff\n  " + str + "\n```";
                     lastMessage = channel.sendMessage(str).complete();
@@ -376,12 +378,12 @@ public class Server {
             }
         } catch (NullPointerException ignored) {
             System.err.println("ERREUR NULL BOT");
-        }
+        } */
     }
     
     public static void blankErrorPrintln(String str) {
         System.err.println(str);
-        try {
+    /*    try {
             channel = (MessageChannel) bot.getGuildById(1121118638779412654L).getGuildChannelById(1121118813463785484L);
             if (lastMessage == null) {
                 str = "```diff\n! " + str + "\n```";
@@ -390,7 +392,7 @@ public class Server {
                 String newStr = Client.removeLastChar(Client.removeLastChar(Client.removeLastChar(lastMessage.getContentRaw())));
                 newStr = newStr + "! " + str + "\n```";
                 try {
-                    lastMessage = lastMessage.editMessage(newStr).complete();
+                    lastMessage = lastMessage.editMessage(newStr).complete(); FIXME bot pas dispo tempo
                 } catch (IllegalArgumentException e) {
                     str = "```diff\n! " + str + "\n```";
                     lastMessage = channel.sendMessage(str).complete();
@@ -398,7 +400,7 @@ public class Server {
             }
         } catch (NullPointerException ignored) {
             System.err.println("ERREUR NULL BOT");
-        }
+        } */
     }
 
     public static String getIPFromSocket(Socket socket) {

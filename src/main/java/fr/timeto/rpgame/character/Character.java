@@ -12,7 +12,7 @@ public class Character implements Serializable {
     // TODO Doit avoir un max de 75 point de compétences -- 70 coompétences + 5 talents
     protected String name;
     protected String lastname;
-    protected int life = 4;
+    protected int health = 4;
     protected int energy = 4;
     public AbilityCategory consitutionAbilities = new AbilityCategory(false, "Constitution", 0, new Ability("Force", 0), new Ability("R\u00e9sistance", 0));
     public AbilityCategory mentalAbilities = new AbilityCategory(false, "Mental", 0, new Ability("Intellect", 0), new Ability("Eloquence", 0));
@@ -29,7 +29,7 @@ public class Character implements Serializable {
 
                 name + "," +
                 lastname + "," +
-                life + "," +
+                health + "," +
                 energy + "," +
                 consitutionAbilities.toString() + "," +
                 mentalAbilities.toString() + "," +
@@ -73,7 +73,7 @@ public class Character implements Serializable {
     }
 
     private Character(String name, String lastname,
-                      int life, int energy,
+                      int health, int energy,
                       AbilityCategory consitutionAbilities,
                       AbilityCategory mentalAbilities,
                       AbilityCategory dexteriteAbilities,

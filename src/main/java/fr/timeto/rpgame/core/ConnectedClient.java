@@ -2,6 +2,7 @@ package fr.timeto.rpgame.core;
 
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.rpgame.character.Character;
+import fr.timeto.rpgame.character.Inventory;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class ConnectedClient implements Serializable {
     private boolean isGM = false;
     private boolean ready = false;
     private Character selectedChar;
+    private final Inventory inventory = new Inventory();
 
     @Override
     public String toString() {
@@ -128,6 +130,10 @@ public class ConnectedClient implements Serializable {
 
     public Character getCharacter() {
         return selectedChar;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public void setReady(boolean ready) {
